@@ -13,6 +13,7 @@ import { getTransactions, removeTransaction } from "../../helpers/StorageHelper"
 import dayjs from "dayjs";
 import "dayjs/locale/id";
 import { Delete, Edit } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 dayjs.locale("id");
 
 function CustomTabPanel(props) {
@@ -54,9 +55,14 @@ function Transactions() {
   const [errorDelete, setErrorDelete] = useState("");
   const [income, setIncome] = useState("");
   const [expense, setExpense] = useState("");
+  const navigate = useNavigate();
 
   const handleClose = () => {
     setOpenDeleteDialog(false);
+  };
+
+  const handleEdit = (id) => {
+    navigate("/edit/" + id);
   };
 
   const handleCloseSnackbar = (event, reason) => {
@@ -190,7 +196,7 @@ function Transactions() {
                       <IconButton onClick={() => handleDeleteClick(transaction.id)} variant="outlined" aria-label="delete">
                         <Delete fontSize="inherit" color="secondary" />
                       </IconButton>
-                      <IconButton aria-label="Edit">
+                      <IconButton aria-label="Edit" onClick={() => handleEdit(transaction.id)}>
                         <Edit fontSize="inherit" color="primary" />
                       </IconButton>
                     </div>
@@ -233,7 +239,7 @@ function Transactions() {
                       <IconButton onClick={() => handleDeleteClick(transaction.id)} variant="outlined" aria-label="delete">
                         <Delete fontSize="inherit" color="secondary" />
                       </IconButton>
-                      <IconButton aria-label="Edit">
+                      <IconButton aria-label="Edit" onClick={() => handleEdit(transaction.id)}>
                         <Edit fontSize="inherit" color="primary" />
                       </IconButton>
                     </div>
@@ -276,7 +282,7 @@ function Transactions() {
                       <IconButton onClick={() => handleDeleteClick(transaction.id)} variant="outlined" aria-label="delete">
                         <Delete fontSize="inherit" color="secondary" />
                       </IconButton>
-                      <IconButton aria-label="Edit">
+                      <IconButton aria-label="Edit" onClick={() => handleEdit(transaction.id)}>
                         <Edit fontSize="inherit" color="primary" />
                       </IconButton>
                     </div>

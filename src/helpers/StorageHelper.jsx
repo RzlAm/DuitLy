@@ -8,6 +8,11 @@ export const getTransactions = () => {
   return data ? JSON.parse(data) : [];
 };
 
+export const getTransactionById = (id) => {
+  const transactions = getTransactions();
+  return transactions.find((tx) => String(tx.id) === String(id)) || null;
+};
+
 export const setTransactions = (transactions) => {
   localStorage.setItem(DATA_KEY, JSON.stringify(transactions));
 };
@@ -28,7 +33,7 @@ export const removeTransaction = (id) => {
 
 export const updateTransaction = (id, updatedTransaction) => {
   const transactions = getTransactions();
-  const index = transactions.findIndex((transaction) => transaction.id === id);
+  const index = transactions.findIndex((transaction) => String(transaction.id) === String(id));
   if (index !== -1) {
     transactions[index] = { ...transactions[index], ...updatedTransaction };
     setTransactions(transactions);
