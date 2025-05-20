@@ -46,17 +46,14 @@ function Transactions() {
   const [value, setValue] = React.useState(0);
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [expense, setExpense] = useState(0);
-  const [income, setIncome] = useState(0);
   const [deleteId, setDeleteId] = useState(null);
   const [reload, setReload] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false);
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const [success, setSuccess] = useState("");
   const [errorDelete, setErrorDelete] = useState("");
-  const [incomeTransactions, setIncomeTransactions] = useState("");
-  const [expenseTransactions, setExpenseTransactions] = useState("");
+  const [income, setIncome] = useState("");
+  const [expense, setExpense] = useState("");
 
   const handleClose = () => {
     setOpenDeleteDialog(false);
@@ -108,22 +105,15 @@ function Transactions() {
       return;
     }
 
-    const totalExpenseAllTime = data.filter((transaction) => transaction.type === "Expense").reduce((acc, transaction) => acc + transaction.amount, 0);
-    const totalIncomeAllTime = data.filter((transaction) => transaction.type === "Income").reduce((acc, transaction) => acc + transaction.amount, 0);
     const sortedData = [...data].sort((a, b) => dayjs(b.date).diff(dayjs(a.date)));
     const incomeFiltered = sortedData.filter((transaction) => transaction.type === "Income");
     const expenseFiltered = sortedData.filter((transaction) => transaction.type === "Expense");
 
-    setExpense(totalExpenseAllTime);
-    setIncome(totalIncomeAllTime);
     setTransactions(data);
-    setIncomeTransactions(incomeFiltered);
-    setExpenseTransactions(expenseFiltered);
-    setError(null);
+    setIncome(incomeFiltered);
+    setExpense(expenseFiltered);
     setLoading(false);
   }, [reload]);
-
-  console.log(expenseTransactions.length);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -186,8 +176,8 @@ function Transactions() {
               <ListItem>
                 <ListItemText primary="Loading..." />
               </ListItem>
-            ) : incomeTransactions.length > 0 ? (
-              incomeTransactions.map((transaction) => (
+            ) : income.length > 0 ? (
+              income.map((transaction) => (
                 <ListItem key={transaction.id}>
                   <Stack direction="row" spacing={0.5} alignItems="center" justifyContent="space-between" width="100%">
                     <Stack direction="row" spacing={0} alignItems="center">
@@ -229,8 +219,8 @@ function Transactions() {
               <ListItem>
                 <ListItemText primary="Loading..." />
               </ListItem>
-            ) : expenseTransactions.length > 0 ? (
-              expenseTransactions.map((transaction) => (
+            ) : expense.length > 0 ? (
+              expense.map((transaction) => (
                 <ListItem key={transaction.id}>
                   <Stack direction="row" spacing={0.5} alignItems="center" justifyContent="space-between" width="100%">
                     <Stack direction="row" spacing={0} alignItems="center">
