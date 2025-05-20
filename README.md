@@ -2,6 +2,14 @@
   <img src="https://i.imgur.com/7pFHXm4.png" alt="DuitLy Logo" width="100" height="100" />
 </p>
 
+<p align="center">
+  <a href="https://github.com/RzlAm/DuitLy/stargazers"><img src="https://img.shields.io/github/stars/RzlAm/DuitLy?style=social" alt="Stars"></a>
+  <a href="https://github.com/RzlAm/DuitLy/network/members"><img src="https://img.shields.io/github/forks/RzlAm/DuitLy?style=social" alt="Forks"></a>
+  <a href="https://github.com/RzlAm/DuitLy/graphs/contributors"><img src="https://img.shields.io/github/contributors/RzlAm/DuitLy" alt="Contributors"></a>
+  <a href="https://github.com/RzlAm/DuitLy/issues"><img src="https://img.shields.io/github/issues/RzlAm/DuitLy" alt="Issues"></a>
+  <a href="https://github.com/RzlAm/DuitLy/blob/main/LICENSE"><img src="https://img.shields.io/github/license/RzlAm/DuitLy" alt="License"></a>
+  <a href="https://github.com/RzlAm/DuitLy/commits/main"><img src="https://img.shields.io/github/last-commit/RzlAm/DuitLy" alt="Last Commit"></a>
+</p>
 <h1 align="center">DuitLy</h1>
 <p align="center"><i>Catat Duitmu, Nikmati Hidupmu</i></p>
 
