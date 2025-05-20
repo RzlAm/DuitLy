@@ -5,7 +5,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import dayjs from "dayjs";
 import { styled } from "@mui/material/styles";
 import { Backup, CloudUpload, DarkMode, Restore, Save } from "@mui/icons-material";
-import logo from "../../assets/react.svg";
+import logo from "../../assets/logo/logo-bg-white.png";
 import { getTheme, setTheme } from "../../helpers/StorageHelper";
 
 function Settings({ toggleTheme, currentTheme }) {
@@ -99,19 +99,14 @@ function Settings({ toggleTheme, currentTheme }) {
           </List>
         </Stack>
         {/* Tentang Aplikasi */}
-        <Box display="flex" alignItems="center" justifyContent={"center"} gap={2} mt={6}>
-          <Avatar sx={{ color: "white", bgcolor: "#fff", border: "1px solid #eee", width: 100, height: 100 }}>
-            <img src={logo} alt="DuitLy Logo" />
-          </Avatar>
+        <Box display="flex" alignItems="center" justifyContent={"center"} gap={3} mt={6}>
+          <img src={logo} alt="DuitLy Logo" width="100" height="100" style={{ borderRadius: "50%" }} />
           <Box>
-            <Typography variant="h6" fontWeight={700} color="primary.main">
+            <Typography variant="h5" mb={1} fontWeight={700} color="primary.main">
               DuitLy
             </Typography>
             <Typography variant="body2" color="text.secondary">
               Versi 1.0.0
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Dibuat oleh: Rizal Amin
             </Typography>
             <Typography variant="body2" color="text.secondary">
               Kontribusi:{" "}
