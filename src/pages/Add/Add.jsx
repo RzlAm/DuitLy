@@ -83,14 +83,14 @@ function Add() {
 
         {error && (
           <Snackbar anchorOrigin={{ vertical: "top", horizontal: "right" }} open={open} autoHideDuration={3000} onClose={handleClose}>
-            <Alert onClose={handleClose} severity="error" variant="filled" sx={{ width: "100%" }}>
+            <Alert onClose={handleClose} severity="error" variant="filled" sx={{ color: "white", width: "100%" }}>
               {error}
             </Alert>
           </Snackbar>
         )}
         {success && (
           <Snackbar anchorOrigin={{ vertical: "top", horizontal: "right" }} open={open} autoHideDuration={3000} onClose={handleClose}>
-            <Alert onClose={handleClose} severity="success" variant="filled" sx={{ width: "100%", bgcolor: "primary.main" }}>
+            <Alert onClose={handleClose} severity="success" variant="filled" sx={{ color: "white", width: "100%", bgcolor: "primary.main" }}>
               {success}
             </Alert>
           </Snackbar>
