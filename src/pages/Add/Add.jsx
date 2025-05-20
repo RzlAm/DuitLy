@@ -63,7 +63,7 @@ function Add() {
       }, 3500);
     } catch (error) {
       setOpen(true);
-      setError(error.message);
+      setError("Gagal menambahkan transaksi: ");
       setTimeout(() => {
         setError("");
       }, 3500);
