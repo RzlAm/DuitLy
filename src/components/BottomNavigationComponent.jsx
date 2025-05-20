@@ -4,6 +4,7 @@ import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import Paper from "@mui/material/Paper";
 import { AddCircleOutline, Home, Settings, SwapVert } from "@mui/icons-material";
 import { useNavigate, useLocation } from "react-router-dom";
+import { Box } from "@mui/material";
 
 export default function BottomNavigationComponent() {
   const navigate = useNavigate();
@@ -12,15 +13,13 @@ export default function BottomNavigationComponent() {
   // Map path jadi value navigasi
   const pathToValue = {
     "/": "home",
-    "/add": "add",
-    "/activity": "activity",
+    "/transactions": "transactions",
     "/settings": "settings",
   };
 
   const valueToPath = {
     home: "/",
-    add: "/add",
-    activity: "/activity",
+    transactions: "/transactions",
     settings: "/settings",
   };
 
@@ -45,8 +44,7 @@ export default function BottomNavigationComponent() {
         onChange={handleChange}
       >
         <BottomNavigationAction value="home" label="Beranda" icon={<Home />} />
-        <BottomNavigationAction value="add" label="Tambah" icon={<AddCircleOutline />} />
-        <BottomNavigationAction value="activity" label="Aktivitas" icon={<SwapVert />} />
+        <BottomNavigationAction value="transactions" label="Transaksi" icon={<SwapVert />} />
         <BottomNavigationAction value="settings" label="Pengaturan" icon={<Settings />} />
       </BottomNavigation>
     </Paper>
