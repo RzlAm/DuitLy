@@ -63,7 +63,7 @@ function Add() {
       }, 3500);
     } catch (error) {
       setOpen(true);
-      setError("Gagal menambahkan transaksi: ");
+      setError(error.message);
       setTimeout(() => {
         setError("");
       }, 3500);
@@ -74,8 +74,10 @@ function Add() {
   return (
     <AppLayout>
       <Box mt={1} p={2}>
-        <Typography variant="h6">Tambah</Typography>
-        <Typography variant="h6" fontSize={15} color="#555" mb={5}>
+        <Typography variant="h6" color="primary">
+          Tambah
+        </Typography>
+        <Typography variant="h6" fontSize={15} color="#777" mb={5}>
           Pemasukan / Pengeluaran
         </Typography>
 
