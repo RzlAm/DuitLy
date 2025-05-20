@@ -1,17 +1,21 @@
 <p align="center">
   <img src="https://i.imgur.com/7pFHXm4.png" alt="DuitLy Logo" width="100" height="100" />
 </p>
+<h1 align="center">DuitLy</h1>
+<p align="center"><i>Catat Duitmu, Nikmati Hidupmu</i></p>
 
 <p align="center">
   <a href="https://github.com/RzlAm/DuitLy/stargazers"><img src="https://img.shields.io/github/stars/RzlAm/DuitLy?style=social" alt="Stars"></a>
   <a href="https://github.com/RzlAm/DuitLy/network/members"><img src="https://img.shields.io/github/forks/RzlAm/DuitLy?style=social" alt="Forks"></a>
   <a href="https://github.com/RzlAm/DuitLy/graphs/contributors"><img src="https://img.shields.io/github/contributors/RzlAm/DuitLy" alt="Contributors"></a>
+  <br>
   <a href="https://github.com/RzlAm/DuitLy/issues"><img src="https://img.shields.io/github/issues/RzlAm/DuitLy" alt="Issues"></a>
   <a href="https://github.com/RzlAm/DuitLy/blob/main/LICENSE"><img src="https://img.shields.io/github/license/RzlAm/DuitLy" alt="License"></a>
   <a href="https://github.com/RzlAm/DuitLy/commits/main"><img src="https://img.shields.io/github/last-commit/RzlAm/DuitLy" alt="Last Commit"></a>
+  <br>
+  <a href="https://mui.com"><img src="https://img.shields.io/badge/Powered%20by-MUI-blue" alt="MUI"></a>
 </p>
-<h1 align="center">DuitLy</h1>
-<p align="center"><i>Catat Duitmu, Nikmati Hidupmu</i></p>
+<br>
 
 ## Deskripsi
 
@@ -50,7 +54,7 @@ Jangan ragu untuk berdiskusi lewat Issues jika ada ide, pertanyaan, atau kendala
 1. Pastikan sudah terinstall Node.js & npm.
 2. Clone repo ini:
    ```bash
-   git clone https://github.com/yourusername/DuitLy.git
+   git clone https://github.com/RzlAm/DuitLy.git
    cd DuitLy
    ```
 3. Install dependencies:
@@ -67,8 +71,8 @@ Jangan ragu untuk berdiskusi lewat Issues jika ada ide, pertanyaan, atau kendala
 
 ## Tautan Penting
 
-- [Repository GitHub](https://github.com/yourusername/DuitLy)
-- [Laporkan Bug / Request Fitur](https://github.com/yourusername/DuitLy/issues)
+- [Repository GitHub](https://github.com/RzlAm/DuitLy)
+- [Laporkan Bug / Request Fitur](https://github.com/RzlAm/DuitLy/issues)
 
 ---
 
