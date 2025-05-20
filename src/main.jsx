@@ -13,6 +13,14 @@ const theme = createTheme({
   typography: {
     fontFamily: "Roboto, sans-serif",
   },
+  palette: {
+    primary: {
+      main: "#009966",
+    },
+    secondary: {
+      main: "#f50057",
+    },
+  },
 });
 
 createRoot(document.getElementById("root")).render(
