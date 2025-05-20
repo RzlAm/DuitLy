@@ -13,14 +13,14 @@ export default function BottomNavigationComponent() {
   const pathToValue = {
     "/": "home",
     "/add": "add",
-    "/activity": "activity",
+    "/transactions": "transactions",
     "/settings": "settings",
   };
 
   const valueToPath = {
     home: "/",
     add: "/add",
-    activity: "/activity",
+    transactions: "/transactions",
     settings: "/settings",
   };
 
@@ -46,7 +46,7 @@ export default function BottomNavigationComponent() {
       >
         <BottomNavigationAction value="home" label="Beranda" icon={<Home />} />
         <BottomNavigationAction value="add" label="Tambah" icon={<AddCircleOutline />} />
-        <BottomNavigationAction value="activity" label="Aktivitas" icon={<SwapVert />} />
+        <BottomNavigationAction value="transactions" label="Transaksi" icon={<SwapVert />} />
         <BottomNavigationAction value="settings" label="Pengaturan" icon={<Settings />} />
       </BottomNavigation>
     </Paper>

@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Add from "./pages/Add/Add";
-import Activity from "./pages/Activity/Activity";
+import Transactions from "./pages/Transactions/Transactions";
 import Settings from "./pages/Settings/Settings";
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/add" element={<Add />} />
-        <Route path="/activity" element={<Activity />} />
+        <Route path="/transactions" element={<Transactions />} />
         <Route path="/settings" element={<Settings />} />
       </Routes>
     </BrowserRouter>

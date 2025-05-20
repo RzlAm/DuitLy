@@ -31,7 +31,7 @@ function a11yProps(index) {
   };
 }
 
-function Activity() {
+function Transactions() {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -131,4 +131,4 @@ function Activity() {
   );
 }
 
-export default Activity;
+export default Transactions;
