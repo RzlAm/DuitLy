@@ -92,5 +92,6 @@
   { "id": 1747727001800, "type": "Expense", "amount": 48000, "date": "5 Apr 2025", "description": "Beli hand sanitizer" },
   { "id": 1747727001900, "type": "Income", "amount": 58000, "date": "5 Apr 2025", "description": "Jual hand sanitizer" },
   { "id": 1747727002000, "type": "Expense", "amount": 49000, "date": "4 Apr 2025", "description": "Beli sabun cuci tangan" },
-  { "id": 1747727002100, "type": "Income", "amount": 59000, "date": "4 Apr 2025", "description": "Jual sabun cuci tangan" }
+  { "id": 1747727002100, "type": "Income", "amount": 59000, "date": "4 Apr 2025", "description": "Jual sabun cuci tangan" },
+  { "id": 1747727002200, "type": "Expense", "amount": 90000, "date": "20 Mei 2025", "description": "Penyeimbang balance" }
 ]
