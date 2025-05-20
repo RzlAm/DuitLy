@@ -80,14 +80,14 @@ function Add() {
         </Typography>
 
         {error && (
-          <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+          <Snackbar anchorOrigin={{ vertical: "top", horizontal: "right" }} open={open} autoHideDuration={3000} onClose={handleClose}>
             <Alert onClose={handleClose} severity="error" variant="filled" sx={{ width: "100%" }}>
               {error}
             </Alert>
           </Snackbar>
         )}
         {success && (
-          <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+          <Snackbar anchorOrigin={{ vertical: "top", horizontal: "right" }} open={open} autoHideDuration={3000} onClose={handleClose}>
             <Alert onClose={handleClose} severity="success" variant="filled" sx={{ width: "100%", bgcolor: "primary.main" }}>
               {success}
             </Alert>
