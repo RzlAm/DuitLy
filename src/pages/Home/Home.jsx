@@ -7,7 +7,7 @@ function Home() {
   return (
     <AppLayout>
       {/* Section Header */}
-      <Box sx={{ bgcolor: "primary.main", color: "white", px: 2, pb: 1, pt: 2 }}>
+      <Box sx={{ bgcolor: "primary.main", color: "white", px: 2, pb: 1, pt: 2, borderBottomRightRadius: 20, borderBottomLeftRadius: 20 }}>
         {/* Akun: Foto + Nama */}
         <Stack direction="row" spacing={1} alignItems="center" mb={2}>
           <Avatar alt="Rizal Amin" src="/path-to-your-photo.jpg" sx={{ width: 33, height: 33 }} />

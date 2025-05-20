@@ -7,7 +7,7 @@ function AppLayout({ children }) {
       <Box>
         <Box
           sx={{
-            maxWidth: "560px",
+            maxWidth: "600px",
             mx: "auto",
             display: "flex",
             flexDirection: "column",
