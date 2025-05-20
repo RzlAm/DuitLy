@@ -51,15 +51,13 @@ function Add() {
         throw new Error("Nominal harus berupa angka positif");
       }
 
-      addTransaction([
-        {
-          id: dayjs().valueOf(),
-          type: type,
-          amount: parseInt(amount),
-          date: date.format("D MMMM YYYY"),
-          description: description.replace(/[\n\r\t]+/g, "").trim(),
-        },
-      ]);
+      addTransaction({
+        id: dayjs().valueOf(),
+        type: type,
+        amount: parseInt(amount),
+        date: date.format("D MMMM YYYY"),
+        description: description.replace(/[\n\r\t]+/g, "").trim(),
+      });
 
       setSuccess("Berhasil menambahkan transaksi");
       setOpen(true);
