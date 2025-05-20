@@ -5,8 +5,8 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import DeleteIcon from "@mui/icons-material/Delete";
-import SendIcon from "@mui/icons-material/Send";
 import dayjs from "dayjs";
+import { Save } from "@mui/icons-material";
 
 function Add() {
   const [type, setType] = useState("Pemasukan");
@@ -55,8 +55,8 @@ function Add() {
             <Button variant="outlined" color="error" startIcon={<DeleteIcon />}>
               Reset
             </Button>
-            <Button variant="contained" endIcon={<SendIcon />}>
-              Send
+            <Button variant="contained" endIcon={<Save />}>
+              Simpan
             </Button>
           </Stack>
         </Stack>

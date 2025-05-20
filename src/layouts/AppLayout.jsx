@@ -5,7 +5,18 @@ function AppLayout({ children }) {
   return (
     <Box>
       <Box>
-        <Box>{children}</Box>
+        <Box
+          sx={{
+            maxWidth: "560px",
+            mx: "auto",
+            display: "flex",
+            flexDirection: "column",
+            minHeight: "100vh",
+          }}
+        >
+          {children}
+        </Box>
+
         <BottomNavigationComponent />
       </Box>
     </Box>

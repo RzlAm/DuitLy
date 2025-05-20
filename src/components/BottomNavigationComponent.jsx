@@ -32,8 +32,18 @@ export default function BottomNavigationComponent() {
   };
 
   return (
-    <Paper sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }} elevation={3}>
-      <BottomNavigation value={value} onChange={handleChange}>
+    <Paper sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }} elevation={1}>
+      <BottomNavigation
+        sx={{
+          maxWidth: "560px",
+          mx: "auto",
+          px: 2,
+          display: "flex",
+          flexDirection: "row",
+        }}
+        value={value}
+        onChange={handleChange}
+      >
         <BottomNavigationAction value="home" label="Beranda" icon={<Home />} />
         <BottomNavigationAction value="add" label="Tambah" icon={<AddCircleOutline />} />
         <BottomNavigationAction value="activity" label="Aktivitas" icon={<SwapVert />} />
