@@ -42,7 +42,6 @@ function Home() {
     setError(null);
     setLoading(false);
   }, []);
-  console.log(dayjs().toISOString());
 
   return (
     <AppLayout>
