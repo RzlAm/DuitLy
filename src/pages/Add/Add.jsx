@@ -6,11 +6,9 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CloseIcon from "@mui/icons-material/Close";
-import dayjs from "dayjs";
 import { Save } from "@mui/icons-material";
-import "dayjs/locale/id";
 import { addTransaction } from "../../helpers/StorageHelper";
-dayjs.locale("id");
+import dayjs from "dayjs";
 
 function Add() {
   const [type, setType] = useState("Income");
@@ -39,7 +37,6 @@ function Add() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("cend");
 
     try {
       if (!type || !amount || !date || !description) {
@@ -55,7 +52,7 @@ function Add() {
         id: dayjs().valueOf(),
         type: type,
         amount: parseInt(amount),
-        date: date.format("D MMMM YYYY"),
+        date: date.toISOString(),
         description: description.replace(/[\n\r\t]+/g, "").trim(),
       });
 
@@ -132,14 +129,14 @@ function Add() {
             </FormControl>
 
             {/* DatePicker */}
-            <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="id">
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
               <MobileDatePicker
                 type="date"
                 required
                 label="Tanggal"
                 value={date}
                 onChange={(newValue) => {
-                  setDate(newValue.format("D MMMM YYYY"));
+                  setDate(newValue);
                 }}
                 slotProps={{
                   textField: { fullWidth: true },
