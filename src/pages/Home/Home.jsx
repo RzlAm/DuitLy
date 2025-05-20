@@ -51,7 +51,7 @@ function Home() {
         </Stack>
       </Box>
 
-      {/* Riwayat Pemasukan / Pengeluaran */}
+      {/* Riwayat Pemasukan dan Pengeluaran */}
       <Box mt={1} p={2}>
         <Typography variant="h6" gutterBottom>
           Riwayat Terbaru
