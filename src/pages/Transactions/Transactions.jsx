@@ -127,7 +127,7 @@ function Transactions() {
 
   return (
     <AppLayout>
-      <Paper elevation={1} sx={{ position: "fixed", top: "0", left: "0", bgcolor: "white", width: "100%", display: "flex", justifyContent: "center" }}>
+      <Paper elevation={1} sx={{ bgcolor: "background.paper", position: "fixed", top: "0", left: "0", width: "100%", display: "flex", justifyContent: "center" }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
           <Tab label="Pemasukan" {...a11yProps(0)} />
           <Tab label="Pengeluaran" {...a11yProps(1)} />
@@ -188,7 +188,7 @@ function Transactions() {
                   <Stack direction="row" spacing={0.5} alignItems="center" justifyContent="space-between" width="100%">
                     <Stack direction="row" spacing={0} alignItems="center">
                       <ListItemAvatar>
-                        <Avatar sx={{ bgcolor: transaction.type === "Expense" ? "secondary.main" : "primary.main" }}>{transaction.type === "Expense" ? <MoneyOffIcon /> : <AttachMoneyIcon />}</Avatar>
+                        <Avatar sx={{ color: "white", bgcolor: transaction.type === "Expense" ? "secondary.main" : "primary.main" }}>{transaction.type === "Expense" ? <MoneyOffIcon /> : <AttachMoneyIcon />}</Avatar>
                       </ListItemAvatar>
                       <ListItemText primary={transaction.description} secondary={"Rp" + transaction.amount.toLocaleString("id-ID") + " • " + dayjs(transaction.date).format("D MMMM YYYY")} />
                     </Stack>
@@ -231,7 +231,7 @@ function Transactions() {
                   <Stack direction="row" spacing={0.5} alignItems="center" justifyContent="space-between" width="100%">
                     <Stack direction="row" spacing={0} alignItems="center">
                       <ListItemAvatar>
-                        <Avatar sx={{ bgcolor: transaction.type === "Expense" ? "secondary.main" : "primary.main" }}>{transaction.type === "Expense" ? <MoneyOffIcon /> : <AttachMoneyIcon />}</Avatar>
+                        <Avatar sx={{ color: "white", bgcolor: transaction.type === "Expense" ? "secondary.main" : "primary.main" }}>{transaction.type === "Expense" ? <MoneyOffIcon /> : <AttachMoneyIcon />}</Avatar>
                       </ListItemAvatar>
                       <ListItemText primary={transaction.description} secondary={"Rp" + transaction.amount.toLocaleString("id-ID") + " • " + dayjs(transaction.date).format("D MMMM YYYY")} />
                     </Stack>
@@ -274,7 +274,7 @@ function Transactions() {
                   <Stack direction="row" spacing={0.5} alignItems="center" justifyContent="space-between" width="100%">
                     <Stack direction="row" spacing={0} alignItems="center">
                       <ListItemAvatar>
-                        <Avatar sx={{ bgcolor: transaction.type === "Expense" ? "secondary.main" : "primary.main" }}>{transaction.type === "Expense" ? <MoneyOffIcon /> : <AttachMoneyIcon />}</Avatar>
+                        <Avatar sx={{ color: "white", bgcolor: transaction.type === "Expense" ? "secondary.main" : "primary.main" }}>{transaction.type === "Expense" ? <MoneyOffIcon /> : <AttachMoneyIcon />}</Avatar>
                       </ListItemAvatar>
                       <ListItemText primary={transaction.description} secondary={"Rp" + transaction.amount.toLocaleString("id-ID") + " • " + dayjs(transaction.date).format("D MMMM YYYY")} />
                     </Stack>

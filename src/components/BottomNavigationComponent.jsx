@@ -4,6 +4,7 @@ import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import Paper from "@mui/material/Paper";
 import { AddCircleOutline, Home, Settings, SwapVert } from "@mui/icons-material";
 import { useNavigate, useLocation } from "react-router-dom";
+import { Box } from "@mui/material";
 
 export default function BottomNavigationComponent() {
   const navigate = useNavigate();

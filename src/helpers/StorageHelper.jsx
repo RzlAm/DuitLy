@@ -86,10 +86,3 @@ export const getTheme = () => {
 export const setTheme = (theme) => {
   localStorage.setItem(THEME_KEY, JSON.stringify(theme));
 };
-
-export const toggleTheme = () => {
-  const currentTheme = getTheme();
-  const newTheme = currentTheme === "light" ? "dark" : "light";
-  setTheme(newTheme);
-  return newTheme;
-};

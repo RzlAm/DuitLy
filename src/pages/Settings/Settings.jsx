@@ -1,15 +1,24 @@
 import { Box, Stack, Typography, InputLabel, Select, MenuItem, FormControl, TextField, InputAdornment, OutlinedInput, Button, List, ListItem, ListItemAvatar, Avatar, ListItemText, Divider, Switch } from "@mui/material";
 import AppLayout from "../../layouts/AppLayout";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import dayjs from "dayjs";
 import { styled } from "@mui/material/styles";
 import { Backup, CloudUpload, DarkMode, Restore, Save } from "@mui/icons-material";
 import logo from "../../assets/react.svg";
+import { getTheme, setTheme } from "../../helpers/StorageHelper";
 
-function Settings() {
+function Settings({ toggleTheme, currentTheme }) {
   const [type, setType] = useState("Pemasukan");
-  const [checked, setChecked] = useState(true);
+  const [dark, setDark] = useState(getTheme() === "dark" && true);
+  const [checked, setChecked] = useState(false);
+
+  const handleDarkSwitch = (event) => {
+    setDark(event.target.checked);
+    toggleTheme();
+
+    setTheme(currentTheme === "dark" ? "light" : "dark");
+  };
 
   const handleSwitch = (event) => {
     setChecked(event.target.checked);
@@ -38,20 +47,19 @@ function Settings() {
           <Typography variant="h6" mb={0}>
             Pengaturan
           </Typography>
-
           <List>
             <ListItem sx={{ pl: 0 }}>
               <Stack direction="row" spacing={2} alignItems="center" justifyContent={"space-between"} width="100%">
                 <div>
                   <ListItemAvatar sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-                    <Avatar sx={{ bgcolor: "#888" }}>
+                    <Avatar sx={{ color: "white", bgcolor: "#888" }}>
                       <DarkMode />
                     </Avatar>
                     <ListItemText primary="Mode gelap" secondary="Aktifkan mode gelap." />
                   </ListItemAvatar>
                 </div>
                 <div>
-                  <Switch checked={checked} onChange={handleSwitch} slotProps={{ "aria-label": "controlled" }} />
+                  <Switch checked={dark} onChange={handleDarkSwitch} slotProps={{ "aria-label": "controlled" }} />
                 </div>
               </Stack>
             </ListItem>
@@ -59,7 +67,7 @@ function Settings() {
               <Stack direction="row" spacing={2} alignItems="center" justifyContent={"space-between"} width="100%">
                 <div>
                   <ListItemAvatar sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-                    <Avatar sx={{ bgcolor: "dodgerblue" }}>
+                    <Avatar sx={{ color: "white", bgcolor: "dodgerblue" }}>
                       <Backup />
                     </Avatar>
                     <ListItemText primary="Backup Otomatis" secondary="Cadangkan data setiap diupdate." />
@@ -74,7 +82,7 @@ function Settings() {
               <Stack direction="row" spacing={2} alignItems="center" justifyContent={"space-between"} width="100%">
                 <div>
                   <ListItemAvatar sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-                    <Avatar sx={{ bgcolor: "secondary.main" }}>
+                    <Avatar sx={{ color: "white", bgcolor: "secondary.main" }}>
                       <Restore />
                     </Avatar>
                     <ListItemText primary="Import Data Backup" secondary="Kembalikan data dengan file backup." />
@@ -92,7 +100,7 @@ function Settings() {
         </Stack>
         {/* Tentang Aplikasi */}
         <Box display="flex" alignItems="center" justifyContent={"center"} gap={2} mt={6}>
-          <Avatar sx={{ bgcolor: "#fff", border: "1px solid #eee", width: 100, height: 100 }}>
+          <Avatar sx={{ color: "white", bgcolor: "#fff", border: "1px solid #eee", width: 100, height: 100 }}>
             <img src={logo} alt="DuitLy Logo" />
           </Avatar>
           <Box>

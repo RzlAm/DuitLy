@@ -1,4 +1,4 @@
-import { Box, Stack, Typography, Avatar, Card, CardContent, List, ListItem, ListItemAvatar, ListItemText, Divider } from "@mui/material";
+import { Box, Stack, Typography, Avatar, List, ListItem, ListItemAvatar, ListItemText, Divider } from "@mui/material";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import MoneyOffIcon from "@mui/icons-material/MoneyOff";
 import AppLayout from "../../layouts/AppLayout";
@@ -117,7 +117,7 @@ function Home() {
                 <>
                   <ListItem key={transaction.id}>
                     <ListItemAvatar>
-                      <Avatar sx={{ bgcolor: transaction.type === "Expense" ? "secondary.main" : "primary.main" }}>{transaction.type === "Expense" ? <MoneyOffIcon /> : <AttachMoneyIcon />}</Avatar>
+                      <Avatar sx={{ color: "white", bgcolor: transaction.type === "Expense" ? "secondary.main" : "primary.main" }}>{transaction.type === "Expense" ? <MoneyOffIcon /> : <AttachMoneyIcon />}</Avatar>
                     </ListItemAvatar>
                     <ListItemText primary={transaction.description} secondary={"Rp" + transaction.amount.toLocaleString("id-ID") + " • " + dayjs(transaction.date).format("D MMMM YYYY")} />
                   </ListItem>
