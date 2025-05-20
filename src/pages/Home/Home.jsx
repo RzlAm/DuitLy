@@ -2,8 +2,29 @@ import { Box, Stack, Typography, Avatar, Card, CardContent, List, ListItem, List
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import MoneyOffIcon from "@mui/icons-material/MoneyOff";
 import AppLayout from "../../layouts/AppLayout";
+import { getTransactions } from "../../helpers/StorageHelper";
+import { useEffect, useState } from "react";
 
 function Home() {
+  const [transactions, setTransactions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    setLoading(true);
+    const data = getTransactions();
+    if (data.length === 0) {
+      setTransactions([]);
+      setError("Tidak ada data transaksi");
+      setLoading(false);
+      return;
+    }
+
+    setTransactions(data);
+    setError(null);
+    setLoading(false);
+  }, []);
+
   return (
     <AppLayout>
       {/* Section Header */}
@@ -52,30 +73,38 @@ function Home() {
       </Box>
 
       {/* Riwayat Pemasukan dan Pengeluaran */}
-      <Box mt={1} p={2}>
+      <Box mt={1} p={2} pb={10}>
         <Typography variant="h6" gutterBottom>
           Riwayat Terbaru
         </Typography>
 
         <List>
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar sx={{ bgcolor: "primary.main" }}>
-                <AttachMoneyIcon />
+          {!loading && transactions.length > 0 ? (
+            transactions.slice(0, 20).map((transaction) => (
+              <>
+                <ListItem key={transaction.id}>
+                  <ListItemAvatar>
+                    <Avatar sx={{ bgcolor: transaction.type === "Expense" ? "secondary.main" : "primary.main" }}>{transaction.type === "Expense" ? <MoneyOffIcon /> : <AttachMoneyIcon />}</Avatar>
+                  </ListItemAvatar>
+                  <ListItemText primary={transaction.description} secondary={"Rp" + transaction.amount.toLocaleString("id-ID") + " • " + transaction.date} />
+                </ListItem>
+                <Divider variant="inset" component="li" />
+              </>
+            ))
+          ) : loading ? (
+            <ListItem>
+              <ListItemText primary="Loading..." />
+            </ListItem>
+          ) : (
+            <ListItem sx={{ flexDirection: "column", alignItems: "center", py: 6 }}>
+              <Avatar sx={{ bgcolor: "grey.100", color: "grey.500", width: 56, height: 56, mb: 1 }}>
+                <MoneyOffIcon sx={{ fontSize: 32 }} />
               </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary="Pemasukan dari freelance" secondary="Rp150.000 • 19 Mei 2025" />
-          </ListItem>
-          <Divider variant="inset" component="li" />
-
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar sx={{ bgcolor: "secondary.main" }}>
-                <MoneyOffIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary="Beli domain .com" secondary="Rp120.000 • 18 Mei 2025" />
-          </ListItem>
+              <Typography variant="subtitle1" color="text.secondary" align="center">
+                Tidak ada data transaksi
+              </Typography>
+            </ListItem>
+          )}
         </List>
       </Box>
     </AppLayout>

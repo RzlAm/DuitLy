@@ -112,7 +112,23 @@ function Add() {
             {/* Nominal */}
             <FormControl fullWidth sx={{ m: 1 }}>
               <InputLabel htmlFor="nominal">Nominal</InputLabel>
-              <OutlinedInput required type="number" value={amount} onChange={(e) => setAmount(e.target.value)} id="nominal" startAdornment={<InputAdornment position="start">Rp</InputAdornment>} label="Nominal" />
+              <OutlinedInput
+                required
+                type="text"
+                value={amount}
+                onChange={(e) => {
+                  const onlyNums = e.target.value.replace(/\D/g, "");
+                  setAmount(onlyNums);
+                }}
+                onKeyDown={(e) => {
+                  if (!/[0-9]/.test(e.key) && e.key !== "Backspace" && e.key !== "Delete" && e.key !== "ArrowLeft" && e.key !== "ArrowRight" && e.key !== "Tab") {
+                    e.preventDefault();
+                  }
+                }}
+                id="nominal"
+                startAdornment={<InputAdornment position="start">Rp</InputAdornment>}
+                label="Nominal"
+              />
             </FormControl>
 
             {/* DatePicker */}
