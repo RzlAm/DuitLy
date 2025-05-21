@@ -138,21 +138,21 @@ function Transactions() {
 
       {errorDelete && (
         <Snackbar anchorOrigin={{ vertical: "top", horizontal: "right" }} open={openSnackbar} autoHideDuration={3000} onClose={handleCloseSnackbar}>
-          <Alert onClose={handleCloseSnackbar} severity="error" variant="filled" sx={{ width: "100%" }}>
+          <Alert onClose={handleCloseSnackbar} severity="error" variant="filled" sx={{ color: "white", width: "100%" }}>
             {errorDelete}
           </Alert>
         </Snackbar>
       )}
       {error && (
         <Snackbar anchorOrigin={{ vertical: "top", horizontal: "right" }} open={openSnackbar} autoHideDuration={3000} onClose={handleCloseSnackbar}>
-          <Alert onClose={handleCloseSnackbar} severity="error" variant="filled" sx={{ width: "100%" }}>
+          <Alert onClose={handleCloseSnackbar} severity="error" variant="filled" sx={{ color: "white", width: "100%" }}>
             {error}
           </Alert>
         </Snackbar>
       )}
       {success && (
         <Snackbar anchorOrigin={{ vertical: "top", horizontal: "right" }} open={openSnackbar} autoHideDuration={3000} onClose={handleCloseSnackbar}>
-          <Alert onClose={handleCloseSnackbar} severity="success" variant="filled" sx={{ width: "100%", bgcolor: "primary.main" }}>
+          <Alert onClose={handleCloseSnackbar} severity="success" variant="filled" sx={{ color: "white", width: "100%", bgcolor: "primary.main" }}>
             {success}
           </Alert>
         </Snackbar>
