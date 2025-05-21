@@ -61,7 +61,7 @@ export const exportTransactions = () => {
   const ss = String(date.getSeconds()).padStart(2, "0");
   const dateStr = `${yyyy}-${mm}-${dd}-${hh}${min}${ss}`;
   a.href = url;
-  a.download = `transactions-${dateStr}.json`;
+  a.download = `DuitLy-${dateStr}.json`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
