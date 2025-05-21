@@ -9,7 +9,7 @@ function AppLayout({ children }) {
   const navigate = useNavigate();
 
   const fabStyle = {
-    position: "absolute",
+    position: "fixed",
     bottom: 80,
     right: 16,
   };
