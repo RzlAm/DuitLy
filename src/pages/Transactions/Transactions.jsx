@@ -128,7 +128,7 @@ function Transactions() {
 
   return (
     <AppLayout>
-      <Paper elevation={1} sx={{ bgcolor: "background.paper", position: "fixed", top: "0", left: "0", width: "100%", display: "flex", justifyContent: "center" }}>
+      <Paper elevation={1} sx={{ bgcolor: "background.paper", position: "fixed", top: "0", left: "0", width: "100%", display: "flex", zIndex: 1, justifyContent: "center" }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
           <Tab label="Pemasukan" {...a11yProps(0)} />
           <Tab label="Pengeluaran" {...a11yProps(1)} />
@@ -138,21 +138,21 @@ function Transactions() {
 
       {errorDelete && (
         <Snackbar anchorOrigin={{ vertical: "top", horizontal: "right" }} open={openSnackbar} autoHideDuration={3000} onClose={handleCloseSnackbar}>
-          <Alert onClose={handleCloseSnackbar} severity="error" variant="filled" sx={{ width: "100%" }}>
+          <Alert onClose={handleCloseSnackbar} severity="error" variant="filled" sx={{ color: "white", width: "100%" }}>
             {errorDelete}
           </Alert>
         </Snackbar>
       )}
       {error && (
         <Snackbar anchorOrigin={{ vertical: "top", horizontal: "right" }} open={openSnackbar} autoHideDuration={3000} onClose={handleCloseSnackbar}>
-          <Alert onClose={handleCloseSnackbar} severity="error" variant="filled" sx={{ width: "100%" }}>
+          <Alert onClose={handleCloseSnackbar} severity="error" variant="filled" sx={{ color: "white", width: "100%" }}>
             {error}
           </Alert>
         </Snackbar>
       )}
       {success && (
         <Snackbar anchorOrigin={{ vertical: "top", horizontal: "right" }} open={openSnackbar} autoHideDuration={3000} onClose={handleCloseSnackbar}>
-          <Alert onClose={handleCloseSnackbar} severity="success" variant="filled" sx={{ width: "100%", bgcolor: "primary.main" }}>
+          <Alert onClose={handleCloseSnackbar} severity="success" variant="filled" sx={{ color: "white", width: "100%", bgcolor: "primary.main" }}>
             {success}
           </Alert>
         </Snackbar>
