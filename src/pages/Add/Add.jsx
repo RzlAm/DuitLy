@@ -104,7 +104,8 @@ function Add() {
         )}
 
         {/* Form Input */}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} autoComplete="off">
+          <input type="hidden" autoComplete="false" />
           <Stack spacing={2}>
             {/* Jenis */}
             <FormControl fullWidth>
