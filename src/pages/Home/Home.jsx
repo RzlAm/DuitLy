@@ -6,6 +6,7 @@ import { getTransactions } from "../../helpers/StorageHelper";
 import { useEffect, useState } from "react";
 import { ArrowCircleDown, ArrowCircleUp } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import logo from "../../assets/logo/logo-white.png";
 import dayjs from "dayjs";
 import "dayjs/locale/id";
 dayjs.locale("id");
@@ -49,7 +50,7 @@ function Home() {
       <Box sx={{ bgcolor: "primary.main", color: "white", px: 2, pb: 1, pt: 2, borderBottomRightRadius: 20, borderBottomLeftRadius: 20 }}>
         {/* Akun: Foto + Nama */}
         <Stack direction="row" spacing={1} alignItems="center" mb={2}>
-          <Avatar alt="Rizal Amin" src="/path-to-your-photo.jpg" sx={{ width: 33, height: 33 }} />
+          <Avatar alt="DuitLy" src={logo} sx={{ width: 40, height: 40 }} />
           <Stack direction="row" spacing={0.5} alignItems="center" mb={2}>
             <Typography variant="h6" color="rgba(255,255,255,.6)" fontSize={13}>
               Rp

@@ -53,6 +53,7 @@ function Transactions() {
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const [success, setSuccess] = useState("");
   const [errorDelete, setErrorDelete] = useState("");
+  const [error, setError] = useState("");
   const [income, setIncome] = useState("");
   const [expense, setExpense] = useState("");
   const navigate = useNavigate();
@@ -139,6 +140,13 @@ function Transactions() {
         <Snackbar anchorOrigin={{ vertical: "top", horizontal: "right" }} open={openSnackbar} autoHideDuration={3000} onClose={handleCloseSnackbar}>
           <Alert onClose={handleCloseSnackbar} severity="error" variant="filled" sx={{ width: "100%" }}>
             {errorDelete}
+          </Alert>
+        </Snackbar>
+      )}
+      {error && (
+        <Snackbar anchorOrigin={{ vertical: "top", horizontal: "right" }} open={openSnackbar} autoHideDuration={3000} onClose={handleCloseSnackbar}>
+          <Alert onClose={handleCloseSnackbar} severity="error" variant="filled" sx={{ width: "100%" }}>
+            {error}
           </Alert>
         </Snackbar>
       )}
