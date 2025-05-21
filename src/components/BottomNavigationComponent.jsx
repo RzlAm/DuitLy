@@ -31,7 +31,7 @@ export default function BottomNavigationComponent() {
   };
 
   return (
-    <Paper sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }} elevation={1}>
+    <Paper sx={{ position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 1 }} elevation={1}>
       <BottomNavigation
         sx={{
           maxWidth: "560px",

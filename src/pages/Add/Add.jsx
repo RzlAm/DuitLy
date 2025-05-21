@@ -73,7 +73,7 @@ function Add() {
 
   return (
     <AppLayout>
-      <Box mt={1} p={2}>
+      <Box mt={1} p={2} pb={20}>
         <Typography variant="h6" color="primary">
           Tambah
         </Typography>

@@ -66,7 +66,7 @@ function Home() {
           <Box textAlign="center" flex={1}>
             <Stack direction="row" spacing={0.5} alignItems="center" justifyContent="center" mb={0}>
               <ArrowCircleDown sx={{ color: "rgba(255,255,255,.8)" }} />
-              <Typography sx={{ color: "rgba(255,255,255,.8)" }} variant="h6" fontSize={16} fontWeight={500}>
+              <Typography sx={{ color: "rgba(255,255,255,.8)" }} variant="h6" fontSize={15} fontWeight={500}>
                 Pemasukan
               </Typography>
             </Stack>
@@ -74,20 +74,20 @@ function Home() {
               <Typography variant="h6" color="rgba(255,255,255,.6)" fontSize={13}>
                 Rp
               </Typography>
-              <Typography variant="h6" sx={{ fontSize: 30, color: "primary.contrastText" }}>
+              <Typography variant="h6" sx={{ fontSize: 24, color: "primary.contrastText" }}>
                 {!loading ? income.toLocaleString("id-ID") : "Loading..."}
               </Typography>
             </Stack>
           </Box>
           <Box textAlign="center" flexShrink={0} minWidth={80}>
-            <Typography sx={{ color: "white" }} variant="h6" textAlign="center" fontSize={16} fontWeight={500} mb={2}>
+            <Typography sx={{ color: "white" }} variant="h6" textAlign="center" fontSize={14} fontWeight={500} mb={2}>
               Hari Ini
             </Typography>
           </Box>
           <Box textAlign="center" flex={1}>
             <Stack direction="row" spacing={0.5} alignItems="center" justifyContent="center" mb={0}>
               <ArrowCircleUp sx={{ color: "rgba(255,255,255,.8)" }} />
-              <Typography sx={{ color: "rgba(255,255,255,.8)" }} variant="h6" fontSize={16} fontWeight={500}>
+              <Typography sx={{ color: "rgba(255,255,255,.8)" }} variant="h6" fontSize={15} fontWeight={500}>
                 Pengeluaran
               </Typography>
             </Stack>
@@ -95,7 +95,7 @@ function Home() {
               <Typography variant="h6" color="rgba(255,255,255,.6)" fontSize={13}>
                 Rp
               </Typography>
-              <Typography variant="h6" sx={{ fontSize: 30, color: "secondary.contrastText" }}>
+              <Typography variant="h6" sx={{ fontSize: 24, color: "secondary.contrastText" }}>
                 {!loading ? expense.toLocaleString("id-ID") : "Loading..."}
               </Typography>
             </Stack>
@@ -116,13 +116,12 @@ function Home() {
               .slice(0, 20)
               .map((transaction) => (
                 <>
-                  <ListItem key={transaction.id}>
+                  <ListItem sx={{ px: 0 }} key={transaction.id}>
                     <ListItemAvatar>
                       <Avatar sx={{ color: "white", bgcolor: transaction.type === "Expense" ? "secondary.main" : "primary.main" }}>{transaction.type === "Expense" ? <MoneyOffIcon /> : <AttachMoneyIcon />}</Avatar>
                     </ListItemAvatar>
                     <ListItemText primary={transaction.description} secondary={"Rp" + transaction.amount.toLocaleString("id-ID") + " • " + dayjs(transaction.date).format("D MMMM YYYY")} />
                   </ListItem>
-                  <Divider variant="inset" component="li" />
                 </>
               ))
           ) : loading ? (
