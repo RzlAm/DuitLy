@@ -128,7 +128,7 @@ function Transactions() {
 
   return (
     <AppLayout>
-      <Paper elevation={1} sx={{ bgcolor: "background.paper", position: "fixed", top: "0", left: "0", width: "100%", display: "flex", justifyContent: "center" }}>
+      <Paper elevation={1} sx={{ bgcolor: "background.paper", position: "fixed", top: "0", left: "0", width: "100%", display: "flex", zIndex: 1, justifyContent: "center" }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
           <Tab label="Pemasukan" {...a11yProps(0)} />
           <Tab label="Pengeluaran" {...a11yProps(1)} />
