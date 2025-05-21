@@ -11,9 +11,9 @@
   <br>
   <a href="https://github.com/RzlAm/DuitLy/issues"><img src="https://img.shields.io/github/issues/RzlAm/DuitLy" alt="Issues"></a>
   <a href="https://github.com/RzlAm/DuitLy/blob/main/LICENSE"><img src="https://img.shields.io/github/license/RzlAm/DuitLy" alt="License"></a>
-  <a href="https://github.com/RzlAm/DuitLy/commits/main"><img src="https://img.shields.io/github/last-commit/RzlAm/DuitLy" alt="Last Commit"></a>
-  <br>
   <a href="https://mui.com"><img src="https://img.shields.io/badge/Powered%20by-MUI-blue" alt="MUI"></a>
+  <br>
+  <a href="https://trakteer.id/rzlam/tip"><img src="https://img.shields.io/badge/Donate-Trakteer-orange" alt="Last Commit"></a>
 </p>
 <br>
 
