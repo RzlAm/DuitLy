@@ -1,6 +1,6 @@
 [
   {
-    "version": "1.0.0",
+    "version": "1.0.1",
     "changelog": ["Fix app version", "Reduce text size on home page", "Remove extra padding on transaction list", "Fix bottom navigation bug", "Fix transaction form bug"],
     "release_date": "2025-05-21",
     "latest": true
