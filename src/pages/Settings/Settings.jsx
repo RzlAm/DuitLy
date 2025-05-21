@@ -18,15 +18,14 @@ function Settings({ toggleTheme, currentTheme }) {
   const [versionError, setVersionError] = useState(null);
 
   useEffect(() => {
-    fetch("https://duitly.vercel.app/versions.json")
+    fetch("https://api.github.com/repos/RzlAm/DuitLy/releases/latest")
       .then((res) => {
         if (!res.ok) throw new Error("Gagal ambil versi");
         return res.json();
       })
       .then((data) => {
-        const latestVersion = data.find((v) => v.latest === true);
-        if (latestVersion) {
-          setVersion(latestVersion.version);
+        if (data?.tag_name) {
+          setVersion(data.tag_name);
         } else {
           setVersionError("Versi terbaru tidak ditemukan");
         }
@@ -225,7 +224,7 @@ function Settings({ toggleTheme, currentTheme }) {
                 DuitLy
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                {version ? "Version: " + "v" + version : versionError ? "Version: err" : "Loading version..."}
+                {version ? "Version: " + version : versionError ? "Version: err" : "Loading version..."}
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 Kontribusi:{" "}
