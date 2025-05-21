@@ -1,6 +1,6 @@
 import { Box, Stack, Typography, Button, List, ListItem, ListItemAvatar, Avatar, ListItemText, Switch, Snackbar, Alert, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from "@mui/material";
 import AppLayout from "../../layouts/AppLayout";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import { Backup, CloudUpload, DarkMode, Download, Restore } from "@mui/icons-material";
 import logo from "../../assets/logo/logo-bg-white.png";
@@ -14,6 +14,25 @@ function Settings({ toggleTheme, currentTheme }) {
   const [openError, setOpenError] = useState(false);
   const [openImportDialog, setOpenImportDialog] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [version, setVersion] = useState(null);
+  const [versionError, setVersionError] = useState(null);
+
+  useEffect(() => {
+    fetch("https://duitly.vercel.app/versions.json")
+      .then((res) => {
+        if (!res.ok) throw new Error("Gagal ambil versi");
+        return res.json();
+      })
+      .then((data) => {
+        const latestVersion = data.find((v) => v.latest === true);
+        if (latestVersion) {
+          setVersion(latestVersion.version);
+        } else {
+          setVersionError("Versi terbaru tidak ditemukan");
+        }
+      })
+      .catch((err) => setVersionError(err.message));
+  }, []);
 
   const handleDarkSwitch = (event) => {
     setDark(event.target.checked);
@@ -206,11 +225,11 @@ function Settings({ toggleTheme, currentTheme }) {
                 DuitLy
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Versi 1.0.0
+                {version ? "Version: " + "v" + version : versionError ? "Version: err" : "Loading version..."}
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 Kontribusi:{" "}
-                <a href="https://github.com/yourusername/DuitLy" target="_blank" rel="noopener noreferrer">
+                <a href="https://github.com/RzlAm/DuitLy" target="_blank" rel="noopener noreferrer">
                   GitHub DuitLy
                 </a>
               </Typography>

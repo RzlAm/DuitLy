@@ -192,7 +192,7 @@ function Transactions() {
               </ListItem>
             ) : income.length > 0 ? (
               income.map((transaction) => (
-                <ListItem key={transaction.id}>
+                <ListItem key={transaction.id} sx={{ px: 0 }}>
                   <Stack direction="row" spacing={0.5} alignItems="center" justifyContent="space-between" width="100%">
                     <Stack direction="row" spacing={0} alignItems="center">
                       <ListItemAvatar>
@@ -200,14 +200,14 @@ function Transactions() {
                       </ListItemAvatar>
                       <ListItemText primary={transaction.description} secondary={"Rp" + transaction.amount.toLocaleString("id-ID") + " • " + dayjs(transaction.date).format("D MMMM YYYY")} />
                     </Stack>
-                    <div>
+                    <Stack direction={"row"} spacing={0}>
                       <IconButton onClick={() => handleDeleteClick(transaction.id)} variant="outlined" aria-label="delete">
                         <Delete fontSize="inherit" color="secondary" />
                       </IconButton>
                       <IconButton aria-label="Edit" onClick={() => handleEdit(transaction.id)}>
                         <Edit fontSize="inherit" color="primary" />
                       </IconButton>
-                    </div>
+                    </Stack>
                   </Stack>
                 </ListItem>
               ))
@@ -235,7 +235,7 @@ function Transactions() {
               </ListItem>
             ) : expense.length > 0 ? (
               expense.map((transaction) => (
-                <ListItem key={transaction.id}>
+                <ListItem key={transaction.id} sx={{ px: 0 }}>
                   <Stack direction="row" spacing={0.5} alignItems="center" justifyContent="space-between" width="100%">
                     <Stack direction="row" spacing={0} alignItems="center">
                       <ListItemAvatar>
@@ -243,14 +243,14 @@ function Transactions() {
                       </ListItemAvatar>
                       <ListItemText primary={transaction.description} secondary={"Rp" + transaction.amount.toLocaleString("id-ID") + " • " + dayjs(transaction.date).format("D MMMM YYYY")} />
                     </Stack>
-                    <div>
+                    <Stack direction={"row"} spacing={0}>
                       <IconButton onClick={() => handleDeleteClick(transaction.id)} variant="outlined" aria-label="delete">
                         <Delete fontSize="inherit" color="secondary" />
                       </IconButton>
                       <IconButton aria-label="Edit" onClick={() => handleEdit(transaction.id)}>
                         <Edit fontSize="inherit" color="primary" />
                       </IconButton>
-                    </div>
+                    </Stack>
                   </Stack>
                 </ListItem>
               ))
@@ -278,7 +278,7 @@ function Transactions() {
               </ListItem>
             ) : transactions.length > 0 ? (
               transactions.map((transaction) => (
-                <ListItem key={transaction.id}>
+                <ListItem key={transaction.id} sx={{ px: 0 }}>
                   <Stack direction="row" spacing={0.5} alignItems="center" justifyContent="space-between" width="100%">
                     <Stack direction="row" spacing={0} alignItems="center">
                       <ListItemAvatar>
@@ -286,14 +286,14 @@ function Transactions() {
                       </ListItemAvatar>
                       <ListItemText primary={transaction.description} secondary={"Rp" + transaction.amount.toLocaleString("id-ID") + " • " + dayjs(transaction.date).format("D MMMM YYYY")} />
                     </Stack>
-                    <div>
+                    <Stack direction={"row"} spacing={0}>
                       <IconButton onClick={() => handleDeleteClick(transaction.id)} variant="outlined" aria-label="delete">
                         <Delete fontSize="inherit" color="secondary" />
                       </IconButton>
                       <IconButton aria-label="Edit" onClick={() => handleEdit(transaction.id)}>
                         <Edit fontSize="inherit" color="primary" />
                       </IconButton>
-                    </div>
+                    </Stack>
                   </Stack>
                 </ListItem>
               ))
