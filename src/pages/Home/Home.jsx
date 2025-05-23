@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/logo/logo-white.png";
 import dayjs from "dayjs";
 import "dayjs/locale/id";
+import TransactionChart from "../../components/TransactionChart";
 dayjs.locale("id");
 
 function Home() {
@@ -103,6 +104,11 @@ function Home() {
         </Stack>
       </Box>
 
+      {/* Chart Section */}
+      <Box mt={1} p={2}>
+        <TransactionChart transactions={transactions} />
+      </Box>
+
       {/* Riwayat Pemasukan dan Pengeluaran */}
       <Box mt={1} p={2} pb={10}>
         <Typography variant="h6" gutterBottom>
@@ -115,14 +121,12 @@ function Home() {
               .sort((a, b) => dayjs(b.date).diff(dayjs(a.date)))
               .slice(0, 20)
               .map((transaction) => (
-                <>
-                  <ListItem sx={{ px: 0 }} key={transaction.id}>
-                    <ListItemAvatar>
-                      <Avatar sx={{ color: "white", bgcolor: transaction.type === "Expense" ? "secondary.main" : "primary.main" }}>{transaction.type === "Expense" ? <MoneyOffIcon /> : <AttachMoneyIcon />}</Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary={transaction.description} secondary={"Rp" + transaction.amount.toLocaleString("id-ID") + " • " + dayjs(transaction.date).format("D MMMM YYYY - HH:MM")} />
-                  </ListItem>
-                </>
+                <ListItem sx={{ px: 0 }} key={transaction.id}>
+                  <ListItemAvatar>
+                    <Avatar sx={{ color: "white", bgcolor: transaction.type === "Expense" ? "secondary.main" : "primary.main" }}>{transaction.type === "Expense" ? <MoneyOffIcon /> : <AttachMoneyIcon />}</Avatar>
+                  </ListItemAvatar>
+                  <ListItemText primary={transaction.description} secondary={"Rp" + transaction.amount.toLocaleString("id-ID") + " • " + dayjs(transaction.date).format("D MMMM YYYY - HH:MM")} />
+                </ListItem>
               ))
           ) : loading ? (
             <ListItem>
