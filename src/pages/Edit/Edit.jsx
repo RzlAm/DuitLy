@@ -3,7 +3,7 @@ import AppLayout from "../../layouts/AppLayout";
 import React, { useEffect, useState } from "react";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
+import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CloseIcon from "@mui/icons-material/Close";
 import { MoneyOff, Save } from "@mui/icons-material";
@@ -93,105 +93,109 @@ function Add() {
     }
   };
 
+  const resetForm = () => {
+    setAmount("");
+    setDate(dayjs());
+    setDescription("");
+    setType("Income");
+  };
+
   return (
     <AppLayout>
-      <Box mt={1} p={2}>
-        <Typography variant="h6" color="primary">
-          Edit
-        </Typography>
-        <Typography variant="h6" fontSize={15} color="#666" mb={5}>
-          Pemasukan / Pengeluaran
-        </Typography>
+      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="id">
+        <Box mt={1} p={2}>
+          <Typography variant="h6" color="primary">
+            Edit
+          </Typography>
+          <Typography variant="h6" fontSize={15} color="#666" mb={5}>
+            Pemasukan / Pengeluaran
+          </Typography>
 
-        {error && (
-          <Snackbar anchorOrigin={{ vertical: "top", horizontal: "right" }} open={open} autoHideDuration={3000} onClose={handleClose}>
-            <Alert onClose={handleClose} severity="error" variant="filled" sx={{ color: "white", width: "100%" }}>
-              {error}
-            </Alert>
-          </Snackbar>
-        )}
-        {success && (
-          <Snackbar anchorOrigin={{ vertical: "top", horizontal: "right" }} open={open} autoHideDuration={3000} onClose={handleClose}>
-            <Alert onClose={handleClose} severity="success" variant="filled" sx={{ color: "white", width: "100%", bgcolor: "primary.main" }}>
-              {success}
-            </Alert>
-          </Snackbar>
-        )}
+          {error && (
+            <Snackbar anchorOrigin={{ vertical: "top", horizontal: "right" }} open={open} autoHideDuration={3000} onClose={handleClose}>
+              <Alert onClose={handleClose} severity="error" variant="filled" sx={{ color: "white", width: "100%" }}>
+                {error}
+              </Alert>
+            </Snackbar>
+          )}
+          {success && (
+            <Snackbar anchorOrigin={{ vertical: "top", horizontal: "right" }} open={open} autoHideDuration={3000} onClose={handleClose}>
+              <Alert onClose={handleClose} severity="success" variant="filled" sx={{ color: "white", width: "100%", bgcolor: "primary.main" }}>
+                {success}
+              </Alert>
+            </Snackbar>
+          )}
 
-        {/* Form Input */}
-        {transaction ? (
-          <form onSubmit={handleSubmit}>
-            <Stack spacing={2}>
-              {/* Jenis */}
-              <FormControl fullWidth>
-                <InputLabel id="type">Jenis</InputLabel>
-                <Select required labelId="type" value={type} label="Jenis" onChange={(e) => setType(e.target.value)}>
-                  <MenuItem value="Income">Pemasukan</MenuItem>
-                  <MenuItem value="Expense">Pengeluaran</MenuItem>
-                </Select>
-              </FormControl>
+          {/* Form Input */}
+          {transaction ? (
+            <form onSubmit={handleSubmit}>
+              <Stack spacing={2}>
+                {/* Jenis */}
+                <FormControl fullWidth>
+                  <InputLabel id="type">Jenis</InputLabel>
+                  <Select required labelId="type" value={type} label="Jenis" onChange={(e) => setType(e.target.value)}>
+                    <MenuItem value="Income">Pemasukan</MenuItem>
+                    <MenuItem value="Expense">Pengeluaran</MenuItem>
+                  </Select>
+                </FormControl>
 
-              {/* Nominal */}
-              <FormControl fullWidth sx={{ m: 1 }}>
-                <InputLabel htmlFor="nominal">Nominal</InputLabel>
-                <OutlinedInput
-                  required
-                  type="text"
-                  value={amount}
-                  onChange={(e) => {
-                    const onlyNums = e.target.value.replace(/\D/g, "");
-                    setAmount(onlyNums);
-                  }}
-                  onKeyDown={(e) => {
-                    if (!/[0-9]/.test(e.key) && e.key !== "Backspace" && e.key !== "Delete" && e.key !== "ArrowLeft" && e.key !== "ArrowRight" && e.key !== "Tab") {
-                      e.preventDefault();
-                    }
-                  }}
-                  id="nominal"
-                  startAdornment={<InputAdornment position="start">Rp</InputAdornment>}
-                  label="Nominal"
-                />
-              </FormControl>
+                {/* Nominal */}
+                <FormControl fullWidth sx={{ m: 1 }}>
+                  <InputLabel htmlFor="nominal">Nominal</InputLabel>
+                  <OutlinedInput
+                    required
+                    type="text"
+                    value={amount}
+                    onChange={(e) => {
+                      const onlyNums = e.target.value.replace(/\D/g, "");
+                      setAmount(onlyNums);
+                    }}
+                    onKeyDown={(e) => {
+                      if (!/[0-9]/.test(e.key) && e.key !== "Backspace" && e.key !== "Delete" && e.key !== "ArrowLeft" && e.key !== "ArrowRight" && e.key !== "Tab") {
+                        e.preventDefault();
+                      }
+                    }}
+                    id="nominal"
+                    startAdornment={<InputAdornment position="start">Rp</InputAdornment>}
+                    label="Nominal"
+                  />
+                </FormControl>
 
-              {/* DatePicker */}
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <MobileDatePicker
-                  type="date"
-                  required
-                  label="Tanggal"
+                {/* Date Time Picker */}
+                <MobileDateTimePicker
+                  label="Waktu"
                   value={date}
-                  onChange={(newValue) => {
-                    setDate(newValue);
-                  }}
+                  onChange={(newValue) => newValue && setDate(newValue)}
                   slotProps={{
                     textField: { fullWidth: true },
                   }}
                 />
-              </LocalizationProvider>
-              <TextField required value={description} onChange={(e) => setDescription(e.target.value)} label="Keterangan" fullWidth multiline rows={4} />
-              <Stack direction="row" justifyContent={"end"} spacing={1}>
-                <Button type="reset\" variant="outlined" color="error" startIcon={<DeleteIcon />}>
-                  Reset
-                </Button>
-                <Button type="submit" variant="contained" endIcon={<Save />}>
-                  Simpan
-                </Button>
+
+                <TextField required value={description} onChange={(e) => setDescription(e.target.value)} label="Keterangan" fullWidth multiline rows={4} />
+                <Stack direction="row" justifyContent={"end"} spacing={1}>
+                  <Button onClick={resetForm} type="reset" variant="outlined" color="error" startIcon={<DeleteIcon />}>
+                    Reset
+                  </Button>
+                  <Button type="submit" variant="contained" endIcon={<Save />}>
+                    Simpan
+                  </Button>
+                </Stack>
               </Stack>
-            </Stack>
-          </form>
-        ) : (
-          <List>
-            <ListItem sx={{ flexDirection: "column", alignItems: "center", py: 6 }}>
-              <Avatar sx={{ bgcolor: "grey.100", color: "grey.500", width: 56, height: 56, mb: 1 }}>
-                <MoneyOff sx={{ fontSize: 32 }} />
-              </Avatar>
-              <Typography variant="subtitle1" color="text.secondary" align="center">
-                {errorGetData}
-              </Typography>
-            </ListItem>
-          </List>
-        )}
-      </Box>
+            </form>
+          ) : (
+            <List>
+              <ListItem sx={{ flexDirection: "column", alignItems: "center", py: 6 }}>
+                <Avatar sx={{ bgcolor: "grey.100", color: "grey.500", width: 56, height: 56, mb: 1 }}>
+                  <MoneyOff sx={{ fontSize: 32 }} />
+                </Avatar>
+                <Typography variant="subtitle1" color="text.secondary" align="center">
+                  {errorGetData}
+                </Typography>
+              </ListItem>
+            </List>
+          )}
+        </Box>
+      </LocalizationProvider>
     </AppLayout>
   );
 }

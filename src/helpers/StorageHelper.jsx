@@ -77,6 +77,23 @@ export const importTransactions = (file) => {
   reader.readAsText(file);
 };
 
+export const searchTransactions = ({ type, keyword, startDate, endDate } = {}) => {
+  let transactions = getTransactions();
+  if (type) {
+    transactions = transactions.filter((tx) => tx.type === type);
+  }
+  if (keyword) {
+    transactions = transactions.filter((tx) => tx.description && tx.description.toLowerCase().includes(keyword.toLowerCase()));
+  }
+  if (startDate) {
+    transactions = transactions.filter((tx) => new Date(tx.date) >= new Date(startDate));
+  }
+  if (endDate) {
+    transactions = transactions.filter((tx) => new Date(tx.date) <= new Date(endDate));
+  }
+  return transactions;
+};
+
 // Theme management
 export const getTheme = () => {
   const theme = localStorage.getItem(THEME_KEY);

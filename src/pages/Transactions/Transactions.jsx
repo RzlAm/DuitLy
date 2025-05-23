@@ -14,6 +14,11 @@ import dayjs from "dayjs";
 import "dayjs/locale/id";
 import { Delete, Edit } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import { searchTransactions } from "../../helpers/StorageHelper";
+import TextField from "@mui/material/TextField";
+import InputAdornment from "@mui/material/InputAdornment";
+import Grid from "@mui/material/Grid";
+import SearchIcon from "@mui/icons-material/Search";
 dayjs.locale("id");
 
 function CustomTabPanel(props) {
@@ -57,6 +62,57 @@ function Transactions() {
   const [income, setIncome] = useState("");
   const [expense, setExpense] = useState("");
   const navigate = useNavigate();
+  const [filter, setFilter] = useState({
+    keyword: "",
+    minAmount: "",
+    maxAmount: "",
+    startDate: "",
+    endDate: "",
+  });
+  const [filteredTransactions, setFilteredTransactions] = useState([]);
+  const [filteredIncome, setFilteredIncome] = useState([]);
+  const [filteredExpense, setFilteredExpense] = useState([]);
+
+  const handleFilterChange = (field, value) => {
+    setFilter((prev) => ({ ...prev, [field]: value }));
+  };
+
+  useEffect(() => {
+    const filterParams = {
+      keyword: filter.keyword,
+      startDate: filter.startDate || undefined,
+      endDate: filter.endDate || undefined,
+    };
+    setFilteredTransactions(searchTransactions(filterParams));
+    setFilteredIncome(searchTransactions({ ...filterParams, type: "Income" }));
+    setFilteredExpense(searchTransactions({ ...filterParams, type: "Expense" }));
+  }, [filter, reload]);
+
+  const FilterUI = (
+    <Box mb={2} mt={3}>
+      <TextField
+        label="Cari keterangan"
+        value={filter.keyword}
+        onChange={(e) => handleFilterChange("keyword", e.target.value)}
+        fullWidth
+        size="small"
+        slotProps={{
+          input: {
+            endAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          },
+        }}
+      />
+
+      <Stack direction={"row"} spacing={3} mt={2}>
+        <TextField label="Tanggal Mulai" type="date" value={filter.startDate} onChange={(e) => handleFilterChange("startDate", e.target.value)} fullWidth size="small" InputLabelProps={{ shrink: true }} />
+        <TextField label="Tanggal Akhir" type="date" value={filter.endDate} onChange={(e) => handleFilterChange("endDate", e.target.value)} fullWidth size="small" InputLabelProps={{ shrink: true }} />
+      </Stack>
+    </Box>
+  );
 
   const handleClose = () => {
     setOpenDeleteDialog(false);
@@ -130,9 +186,9 @@ function Transactions() {
     <AppLayout>
       <Paper elevation={1} sx={{ bgcolor: "background.paper", position: "fixed", top: "0", left: "0", width: "100%", display: "flex", zIndex: 1, justifyContent: "center" }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
-          <Tab label="Pemasukan" {...a11yProps(0)} />
-          <Tab label="Pengeluaran" {...a11yProps(1)} />
-          <Tab label="Semua" {...a11yProps(2)} />
+          <Tab label="Semua" {...a11yProps(0)} />
+          <Tab label="Pemasukan" {...a11yProps(1)} />
+          <Tab label="Pengeluaran" {...a11yProps(2)} />
         </Tabs>
       </Paper>
 
@@ -180,80 +236,39 @@ function Transactions() {
       </Dialog>
 
       <Box sx={{ marginTop: "55px" }} pb={10}>
-        <CustomTabPanel value={value} index={0}>
-          <Typography variant="h3" sx={{ fontSize: 20 }} mb={1}>
-            Daftar Pemasukan
-          </Typography>
-
-          <List>
-            {loading ? (
-              <ListItem>
-                <ListItemText primary="Loading..." />
-              </ListItem>
-            ) : income.length > 0 ? (
-              income.map((transaction) => (
-                <ListItem key={transaction.id} sx={{ px: 0 }}>
-                  <Stack direction="row" spacing={0.5} alignItems="center" justifyContent="space-between" width="100%">
-                    <Stack direction="row" spacing={0} alignItems="center">
-                      <ListItemAvatar>
-                        <Avatar sx={{ color: "white", bgcolor: transaction.type === "Expense" ? "secondary.main" : "primary.main" }}>{transaction.type === "Expense" ? <MoneyOffIcon /> : <AttachMoneyIcon />}</Avatar>
-                      </ListItemAvatar>
-                      <ListItemText primary={transaction.description} secondary={"Rp" + transaction.amount.toLocaleString("id-ID") + " • " + dayjs(transaction.date).format("D MMMM YYYY")} />
-                    </Stack>
-                    <Stack direction={"row"} spacing={0}>
-                      <IconButton onClick={() => handleDeleteClick(transaction.id)} variant="outlined" aria-label="delete">
-                        <Delete fontSize="inherit" color="secondary" />
-                      </IconButton>
-                      <IconButton aria-label="Edit" onClick={() => handleEdit(transaction.id)}>
-                        <Edit fontSize="inherit" color="primary" />
-                      </IconButton>
-                    </Stack>
-                  </Stack>
-                </ListItem>
-              ))
-            ) : (
-              <ListItem sx={{ flexDirection: "column", alignItems: "center", py: 6 }}>
-                <Avatar sx={{ bgcolor: "grey.100", color: "grey.500", width: 56, height: 56, mb: 1 }}>
-                  <MoneyOffIcon sx={{ fontSize: 32 }} />
-                </Avatar>
-                <Typography variant="subtitle1" color="text.secondary" align="center">
-                  Tidak ada data transaksi
-                </Typography>
-              </ListItem>
-            )}
-          </List>
-        </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
-          <Typography variant="h3" sx={{ fontSize: 20 }} mb={1}>
-            Daftar Pengeluaran
+          <Typography variant="h3" sx={{ fontSize: 20, textAlign: "center" }} mb={1}>
+            Pemasukan
           </Typography>
-
+          {FilterUI}
           <List>
             {loading ? (
               <ListItem>
                 <ListItemText primary="Loading..." />
               </ListItem>
-            ) : expense.length > 0 ? (
-              expense.map((transaction) => (
-                <ListItem key={transaction.id} sx={{ px: 0 }}>
-                  <Stack direction="row" spacing={0.5} alignItems="center" justifyContent="space-between" width="100%">
-                    <Stack direction="row" spacing={0} alignItems="center">
-                      <ListItemAvatar>
-                        <Avatar sx={{ color: "white", bgcolor: transaction.type === "Expense" ? "secondary.main" : "primary.main" }}>{transaction.type === "Expense" ? <MoneyOffIcon /> : <AttachMoneyIcon />}</Avatar>
-                      </ListItemAvatar>
-                      <ListItemText primary={transaction.description} secondary={"Rp" + transaction.amount.toLocaleString("id-ID") + " • " + dayjs(transaction.date).format("D MMMM YYYY")} />
+            ) : filteredIncome.length > 0 ? (
+              filteredIncome
+                .sort((a, b) => dayjs(b.date).diff(dayjs(a.date)))
+                .map((transaction) => (
+                  <ListItem key={transaction.id} sx={{ px: 0 }}>
+                    <Stack direction="row" spacing={0.5} alignItems="center" justifyContent="space-between" width="100%">
+                      <Stack direction="row" spacing={0} alignItems="center">
+                        <ListItemAvatar>
+                          <Avatar sx={{ color: "white", bgcolor: transaction.type === "Expense" ? "secondary.main" : "primary.main" }}>{transaction.type === "Expense" ? <MoneyOffIcon /> : <AttachMoneyIcon />}</Avatar>
+                        </ListItemAvatar>
+                        <ListItemText primary={transaction.description} secondary={"Rp" + transaction.amount.toLocaleString("id-ID") + " • " + dayjs(transaction.date).format("D MMMM YYYY - HH:MM")} />
+                      </Stack>
+                      <Stack direction={"row"} spacing={0}>
+                        <IconButton onClick={() => handleDeleteClick(transaction.id)} variant="outlined" aria-label="delete">
+                          <Delete fontSize="inherit" color="secondary" />
+                        </IconButton>
+                        <IconButton aria-label="Edit" onClick={() => handleEdit(transaction.id)}>
+                          <Edit fontSize="inherit" color="primary" />
+                        </IconButton>
+                      </Stack>
                     </Stack>
-                    <Stack direction={"row"} spacing={0}>
-                      <IconButton onClick={() => handleDeleteClick(transaction.id)} variant="outlined" aria-label="delete">
-                        <Delete fontSize="inherit" color="secondary" />
-                      </IconButton>
-                      <IconButton aria-label="Edit" onClick={() => handleEdit(transaction.id)}>
-                        <Edit fontSize="inherit" color="primary" />
-                      </IconButton>
-                    </Stack>
-                  </Stack>
-                </ListItem>
-              ))
+                  </ListItem>
+                ))
             ) : (
               <ListItem sx={{ flexDirection: "column", alignItems: "center", py: 6 }}>
                 <Avatar sx={{ bgcolor: "grey.100", color: "grey.500", width: 56, height: 56, mb: 1 }}>
@@ -267,36 +282,83 @@ function Transactions() {
           </List>
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
-          <Typography variant="h3" sx={{ fontSize: 20 }} mb={1}>
-            Daftar Pemasukan dan Pengeluaran
+          <Typography variant="h3" sx={{ fontSize: 20, textAlign: "center" }} mb={1}>
+            Pengeluaran
           </Typography>
-
+          {FilterUI}
           <List>
             {loading ? (
               <ListItem>
                 <ListItemText primary="Loading..." />
               </ListItem>
-            ) : transactions.length > 0 ? (
-              transactions.map((transaction) => (
-                <ListItem key={transaction.id} sx={{ px: 0 }}>
-                  <Stack direction="row" spacing={0.5} alignItems="center" justifyContent="space-between" width="100%">
-                    <Stack direction="row" spacing={0} alignItems="center">
-                      <ListItemAvatar>
-                        <Avatar sx={{ color: "white", bgcolor: transaction.type === "Expense" ? "secondary.main" : "primary.main" }}>{transaction.type === "Expense" ? <MoneyOffIcon /> : <AttachMoneyIcon />}</Avatar>
-                      </ListItemAvatar>
-                      <ListItemText primary={transaction.description} secondary={"Rp" + transaction.amount.toLocaleString("id-ID") + " • " + dayjs(transaction.date).format("D MMMM YYYY")} />
+            ) : filteredExpense.length > 0 ? (
+              filteredExpense
+                .sort((a, b) => dayjs(b.date).diff(dayjs(a.date)))
+                .map((transaction) => (
+                  <ListItem key={transaction.id} sx={{ px: 0 }}>
+                    <Stack direction="row" spacing={0.5} alignItems="center" justifyContent="space-between" width="100%">
+                      <Stack direction="row" spacing={0} alignItems="center">
+                        <ListItemAvatar>
+                          <Avatar sx={{ color: "white", bgcolor: transaction.type === "Expense" ? "secondary.main" : "primary.main" }}>{transaction.type === "Expense" ? <MoneyOffIcon /> : <AttachMoneyIcon />}</Avatar>
+                        </ListItemAvatar>
+                        <ListItemText primary={transaction.description} secondary={"Rp" + transaction.amount.toLocaleString("id-ID") + " • " + dayjs(transaction.date).format("D MMMM YYYY - HH:MM")} />
+                      </Stack>
+                      <Stack direction={"row"} spacing={0}>
+                        <IconButton onClick={() => handleDeleteClick(transaction.id)} variant="outlined" aria-label="delete">
+                          <Delete fontSize="inherit" color="secondary" />
+                        </IconButton>
+                        <IconButton aria-label="Edit" onClick={() => handleEdit(transaction.id)}>
+                          <Edit fontSize="inherit" color="primary" />
+                        </IconButton>
+                      </Stack>
                     </Stack>
-                    <Stack direction={"row"} spacing={0}>
-                      <IconButton onClick={() => handleDeleteClick(transaction.id)} variant="outlined" aria-label="delete">
-                        <Delete fontSize="inherit" color="secondary" />
-                      </IconButton>
-                      <IconButton aria-label="Edit" onClick={() => handleEdit(transaction.id)}>
-                        <Edit fontSize="inherit" color="primary" />
-                      </IconButton>
+                  </ListItem>
+                ))
+            ) : (
+              <ListItem sx={{ flexDirection: "column", alignItems: "center", py: 6 }}>
+                <Avatar sx={{ bgcolor: "grey.100", color: "grey.500", width: 56, height: 56, mb: 1 }}>
+                  <MoneyOffIcon sx={{ fontSize: 32 }} />
+                </Avatar>
+                <Typography variant="subtitle1" color="text.secondary" align="center">
+                  Tidak ada data transaksi
+                </Typography>
+              </ListItem>
+            )}
+          </List>
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={0}>
+          <Typography variant="h3" sx={{ fontSize: 20, textAlign: "center" }} mb={1}>
+            Pemasukan dan Pengeluaran
+          </Typography>
+          {FilterUI}
+          <List>
+            {loading ? (
+              <ListItem>
+                <ListItemText primary="Loading..." />
+              </ListItem>
+            ) : filteredTransactions.length > 0 ? (
+              filteredTransactions
+                .sort((a, b) => dayjs(b.date).diff(dayjs(a.date)))
+                .map((transaction) => (
+                  <ListItem key={transaction.id} sx={{ px: 0 }}>
+                    <Stack direction="row" spacing={0.5} alignItems="center" justifyContent="space-between" width="100%">
+                      <Stack direction="row" spacing={0} alignItems="center">
+                        <ListItemAvatar>
+                          <Avatar sx={{ color: "white", bgcolor: transaction.type === "Expense" ? "secondary.main" : "primary.main" }}>{transaction.type === "Expense" ? <MoneyOffIcon /> : <AttachMoneyIcon />}</Avatar>
+                        </ListItemAvatar>
+                        <ListItemText primary={transaction.description} secondary={"Rp" + transaction.amount.toLocaleString("id-ID") + " • " + dayjs(transaction.date).format("D MMMM YYYY - HH:MM")} />
+                      </Stack>
+                      <Stack direction={"row"} spacing={0}>
+                        <IconButton onClick={() => handleDeleteClick(transaction.id)} variant="outlined" aria-label="delete">
+                          <Delete fontSize="inherit" color="secondary" />
+                        </IconButton>
+                        <IconButton aria-label="Edit" onClick={() => handleEdit(transaction.id)}>
+                          <Edit fontSize="inherit" color="primary" />
+                        </IconButton>
+                      </Stack>
                     </Stack>
-                  </Stack>
-                </ListItem>
-              ))
+                  </ListItem>
+                ))
             ) : (
               <ListItem sx={{ flexDirection: "column", alignItems: "center", py: 6 }}>
                 <Avatar sx={{ bgcolor: "grey.100", color: "grey.500", width: 56, height: 56, mb: 1 }}>
