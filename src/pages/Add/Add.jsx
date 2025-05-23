@@ -57,6 +57,7 @@ function Add() {
       });
 
       setSuccess("Berhasil menambahkan transaksi");
+      resetForm();
       setOpen(true);
       setTimeout(() => {
         setSuccess("");
