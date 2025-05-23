@@ -8,7 +8,9 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: "autoUpdate",
-      includeAssets: ["logo-bg-white.png"],
+      devOptions: {
+        enabled: true,
+      },
       manifest: {
         name: "DuitLy",
         short_name: "DuitLy",
@@ -39,13 +41,13 @@ export default defineConfig({
             },
           },
           {
-            urlPattern: ({ request }) => request.destination === "script" || request.destination === "style" || request.destination === "image",
+            urlPattern: ({ request }) => ["style", "script", "image"].includes(request.destination),
             handler: "CacheFirst",
             options: {
               cacheName: "assets",
               expiration: {
                 maxEntries: 100,
-                maxAgeSeconds: 60 * 60 * 24 * 30,
+                maxAgeSeconds: 60 * 60 * 24 * 30, // 30 hari
               },
             },
           },
