@@ -14,6 +14,11 @@ import dayjs from "dayjs";
 import "dayjs/locale/id";
 import { Delete, Edit } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import { searchTransactions } from "../../helpers/StorageHelper";
+import TextField from "@mui/material/TextField";
+import InputAdornment from "@mui/material/InputAdornment";
+import Grid from "@mui/material/Grid";
+import SearchIcon from "@mui/icons-material/Search";
 dayjs.locale("id");
 
 function CustomTabPanel(props) {
@@ -57,6 +62,57 @@ function Transactions() {
   const [income, setIncome] = useState("");
   const [expense, setExpense] = useState("");
   const navigate = useNavigate();
+  const [filter, setFilter] = useState({
+    keyword: "",
+    minAmount: "",
+    maxAmount: "",
+    startDate: "",
+    endDate: "",
+  });
+  const [filteredTransactions, setFilteredTransactions] = useState([]);
+  const [filteredIncome, setFilteredIncome] = useState([]);
+  const [filteredExpense, setFilteredExpense] = useState([]);
+
+  const handleFilterChange = (field, value) => {
+    setFilter((prev) => ({ ...prev, [field]: value }));
+  };
+
+  useEffect(() => {
+    const filterParams = {
+      keyword: filter.keyword,
+      startDate: filter.startDate || undefined,
+      endDate: filter.endDate || undefined,
+    };
+    setFilteredTransactions(searchTransactions(filterParams));
+    setFilteredIncome(searchTransactions({ ...filterParams, type: "Income" }));
+    setFilteredExpense(searchTransactions({ ...filterParams, type: "Expense" }));
+  }, [filter, reload]);
+
+  const FilterUI = (
+    <Box mb={2} mt={3}>
+      <TextField
+        label="Cari keterangan"
+        value={filter.keyword}
+        onChange={(e) => handleFilterChange("keyword", e.target.value)}
+        fullWidth
+        size="small"
+        slotProps={{
+          input: {
+            endAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          },
+        }}
+      />
+
+      <Stack direction={"row"} spacing={3} mt={2}>
+        <TextField label="Tanggal Mulai" type="date" value={filter.startDate} onChange={(e) => handleFilterChange("startDate", e.target.value)} fullWidth size="small" InputLabelProps={{ shrink: true }} />
+        <TextField label="Tanggal Akhir" type="date" value={filter.endDate} onChange={(e) => handleFilterChange("endDate", e.target.value)} fullWidth size="small" InputLabelProps={{ shrink: true }} />
+      </Stack>
+    </Box>
+  );
 
   const handleClose = () => {
     setOpenDeleteDialog(false);
@@ -181,17 +237,17 @@ function Transactions() {
 
       <Box sx={{ marginTop: "55px" }} pb={10}>
         <CustomTabPanel value={value} index={1}>
-          <Typography variant="h3" sx={{ fontSize: 20 }} mb={1}>
-            Daftar Pemasukan
+          <Typography variant="h3" sx={{ fontSize: 20, textAlign: "center" }} mb={1}>
+            Pemasukan
           </Typography>
-
+          {FilterUI}
           <List>
             {loading ? (
               <ListItem>
                 <ListItemText primary="Loading..." />
               </ListItem>
-            ) : income.length > 0 ? (
-              income
+            ) : filteredIncome.length > 0 ? (
+              filteredIncome
                 .sort((a, b) => dayjs(b.date).diff(dayjs(a.date)))
                 .map((transaction) => (
                   <ListItem key={transaction.id} sx={{ px: 0 }}>
@@ -226,17 +282,17 @@ function Transactions() {
           </List>
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
-          <Typography variant="h3" sx={{ fontSize: 20 }} mb={1}>
-            Daftar Pengeluaran
+          <Typography variant="h3" sx={{ fontSize: 20, textAlign: "center" }} mb={1}>
+            Pengeluaran
           </Typography>
-
+          {FilterUI}
           <List>
             {loading ? (
               <ListItem>
                 <ListItemText primary="Loading..." />
               </ListItem>
-            ) : expense.length > 0 ? (
-              expense
+            ) : filteredExpense.length > 0 ? (
+              filteredExpense
                 .sort((a, b) => dayjs(b.date).diff(dayjs(a.date)))
                 .map((transaction) => (
                   <ListItem key={transaction.id} sx={{ px: 0 }}>
@@ -271,17 +327,17 @@ function Transactions() {
           </List>
         </CustomTabPanel>
         <CustomTabPanel value={value} index={0}>
-          <Typography variant="h3" sx={{ fontSize: 20 }} mb={1}>
-            Daftar Pemasukan dan Pengeluaran
+          <Typography variant="h3" sx={{ fontSize: 20, textAlign: "center" }} mb={1}>
+            Pemasukan dan Pengeluaran
           </Typography>
-
+          {FilterUI}
           <List>
             {loading ? (
               <ListItem>
                 <ListItemText primary="Loading..." />
               </ListItem>
-            ) : transactions.length > 0 ? (
-              transactions
+            ) : filteredTransactions.length > 0 ? (
+              filteredTransactions
                 .sort((a, b) => dayjs(b.date).diff(dayjs(a.date)))
                 .map((transaction) => (
                   <ListItem key={transaction.id} sx={{ px: 0 }}>
