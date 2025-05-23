@@ -191,26 +191,28 @@ function Transactions() {
                 <ListItemText primary="Loading..." />
               </ListItem>
             ) : income.length > 0 ? (
-              income.map((transaction) => (
-                <ListItem key={transaction.id} sx={{ px: 0 }}>
-                  <Stack direction="row" spacing={0.5} alignItems="center" justifyContent="space-between" width="100%">
-                    <Stack direction="row" spacing={0} alignItems="center">
-                      <ListItemAvatar>
-                        <Avatar sx={{ color: "white", bgcolor: transaction.type === "Expense" ? "secondary.main" : "primary.main" }}>{transaction.type === "Expense" ? <MoneyOffIcon /> : <AttachMoneyIcon />}</Avatar>
-                      </ListItemAvatar>
-                      <ListItemText primary={transaction.description} secondary={"Rp" + transaction.amount.toLocaleString("id-ID") + " • " + dayjs(transaction.date).format("D MMMM YYYY")} />
+              income
+                .sort((a, b) => dayjs(b.date).diff(dayjs(a.date)))
+                .map((transaction) => (
+                  <ListItem key={transaction.id} sx={{ px: 0 }}>
+                    <Stack direction="row" spacing={0.5} alignItems="center" justifyContent="space-between" width="100%">
+                      <Stack direction="row" spacing={0} alignItems="center">
+                        <ListItemAvatar>
+                          <Avatar sx={{ color: "white", bgcolor: transaction.type === "Expense" ? "secondary.main" : "primary.main" }}>{transaction.type === "Expense" ? <MoneyOffIcon /> : <AttachMoneyIcon />}</Avatar>
+                        </ListItemAvatar>
+                        <ListItemText primary={transaction.description} secondary={"Rp" + transaction.amount.toLocaleString("id-ID") + " • " + dayjs(transaction.date).format("D MMMM YYYY - HH:MM")} />
+                      </Stack>
+                      <Stack direction={"row"} spacing={0}>
+                        <IconButton onClick={() => handleDeleteClick(transaction.id)} variant="outlined" aria-label="delete">
+                          <Delete fontSize="inherit" color="secondary" />
+                        </IconButton>
+                        <IconButton aria-label="Edit" onClick={() => handleEdit(transaction.id)}>
+                          <Edit fontSize="inherit" color="primary" />
+                        </IconButton>
+                      </Stack>
                     </Stack>
-                    <Stack direction={"row"} spacing={0}>
-                      <IconButton onClick={() => handleDeleteClick(transaction.id)} variant="outlined" aria-label="delete">
-                        <Delete fontSize="inherit" color="secondary" />
-                      </IconButton>
-                      <IconButton aria-label="Edit" onClick={() => handleEdit(transaction.id)}>
-                        <Edit fontSize="inherit" color="primary" />
-                      </IconButton>
-                    </Stack>
-                  </Stack>
-                </ListItem>
-              ))
+                  </ListItem>
+                ))
             ) : (
               <ListItem sx={{ flexDirection: "column", alignItems: "center", py: 6 }}>
                 <Avatar sx={{ bgcolor: "grey.100", color: "grey.500", width: 56, height: 56, mb: 1 }}>
@@ -234,26 +236,28 @@ function Transactions() {
                 <ListItemText primary="Loading..." />
               </ListItem>
             ) : expense.length > 0 ? (
-              expense.map((transaction) => (
-                <ListItem key={transaction.id} sx={{ px: 0 }}>
-                  <Stack direction="row" spacing={0.5} alignItems="center" justifyContent="space-between" width="100%">
-                    <Stack direction="row" spacing={0} alignItems="center">
-                      <ListItemAvatar>
-                        <Avatar sx={{ color: "white", bgcolor: transaction.type === "Expense" ? "secondary.main" : "primary.main" }}>{transaction.type === "Expense" ? <MoneyOffIcon /> : <AttachMoneyIcon />}</Avatar>
-                      </ListItemAvatar>
-                      <ListItemText primary={transaction.description} secondary={"Rp" + transaction.amount.toLocaleString("id-ID") + " • " + dayjs(transaction.date).format("D MMMM YYYY")} />
+              expense
+                .sort((a, b) => dayjs(b.date).diff(dayjs(a.date)))
+                .map((transaction) => (
+                  <ListItem key={transaction.id} sx={{ px: 0 }}>
+                    <Stack direction="row" spacing={0.5} alignItems="center" justifyContent="space-between" width="100%">
+                      <Stack direction="row" spacing={0} alignItems="center">
+                        <ListItemAvatar>
+                          <Avatar sx={{ color: "white", bgcolor: transaction.type === "Expense" ? "secondary.main" : "primary.main" }}>{transaction.type === "Expense" ? <MoneyOffIcon /> : <AttachMoneyIcon />}</Avatar>
+                        </ListItemAvatar>
+                        <ListItemText primary={transaction.description} secondary={"Rp" + transaction.amount.toLocaleString("id-ID") + " • " + dayjs(transaction.date).format("D MMMM YYYY - HH:MM")} />
+                      </Stack>
+                      <Stack direction={"row"} spacing={0}>
+                        <IconButton onClick={() => handleDeleteClick(transaction.id)} variant="outlined" aria-label="delete">
+                          <Delete fontSize="inherit" color="secondary" />
+                        </IconButton>
+                        <IconButton aria-label="Edit" onClick={() => handleEdit(transaction.id)}>
+                          <Edit fontSize="inherit" color="primary" />
+                        </IconButton>
+                      </Stack>
                     </Stack>
-                    <Stack direction={"row"} spacing={0}>
-                      <IconButton onClick={() => handleDeleteClick(transaction.id)} variant="outlined" aria-label="delete">
-                        <Delete fontSize="inherit" color="secondary" />
-                      </IconButton>
-                      <IconButton aria-label="Edit" onClick={() => handleEdit(transaction.id)}>
-                        <Edit fontSize="inherit" color="primary" />
-                      </IconButton>
-                    </Stack>
-                  </Stack>
-                </ListItem>
-              ))
+                  </ListItem>
+                ))
             ) : (
               <ListItem sx={{ flexDirection: "column", alignItems: "center", py: 6 }}>
                 <Avatar sx={{ bgcolor: "grey.100", color: "grey.500", width: 56, height: 56, mb: 1 }}>
@@ -277,26 +281,28 @@ function Transactions() {
                 <ListItemText primary="Loading..." />
               </ListItem>
             ) : transactions.length > 0 ? (
-              transactions.map((transaction) => (
-                <ListItem key={transaction.id} sx={{ px: 0 }}>
-                  <Stack direction="row" spacing={0.5} alignItems="center" justifyContent="space-between" width="100%">
-                    <Stack direction="row" spacing={0} alignItems="center">
-                      <ListItemAvatar>
-                        <Avatar sx={{ color: "white", bgcolor: transaction.type === "Expense" ? "secondary.main" : "primary.main" }}>{transaction.type === "Expense" ? <MoneyOffIcon /> : <AttachMoneyIcon />}</Avatar>
-                      </ListItemAvatar>
-                      <ListItemText primary={transaction.description} secondary={"Rp" + transaction.amount.toLocaleString("id-ID") + " • " + dayjs(transaction.date).format("D MMMM YYYY")} />
+              transactions
+                .sort((a, b) => dayjs(b.date).diff(dayjs(a.date)))
+                .map((transaction) => (
+                  <ListItem key={transaction.id} sx={{ px: 0 }}>
+                    <Stack direction="row" spacing={0.5} alignItems="center" justifyContent="space-between" width="100%">
+                      <Stack direction="row" spacing={0} alignItems="center">
+                        <ListItemAvatar>
+                          <Avatar sx={{ color: "white", bgcolor: transaction.type === "Expense" ? "secondary.main" : "primary.main" }}>{transaction.type === "Expense" ? <MoneyOffIcon /> : <AttachMoneyIcon />}</Avatar>
+                        </ListItemAvatar>
+                        <ListItemText primary={transaction.description} secondary={"Rp" + transaction.amount.toLocaleString("id-ID") + " • " + dayjs(transaction.date).format("D MMMM YYYY - HH:MM")} />
+                      </Stack>
+                      <Stack direction={"row"} spacing={0}>
+                        <IconButton onClick={() => handleDeleteClick(transaction.id)} variant="outlined" aria-label="delete">
+                          <Delete fontSize="inherit" color="secondary" />
+                        </IconButton>
+                        <IconButton aria-label="Edit" onClick={() => handleEdit(transaction.id)}>
+                          <Edit fontSize="inherit" color="primary" />
+                        </IconButton>
+                      </Stack>
                     </Stack>
-                    <Stack direction={"row"} spacing={0}>
-                      <IconButton onClick={() => handleDeleteClick(transaction.id)} variant="outlined" aria-label="delete">
-                        <Delete fontSize="inherit" color="secondary" />
-                      </IconButton>
-                      <IconButton aria-label="Edit" onClick={() => handleEdit(transaction.id)}>
-                        <Edit fontSize="inherit" color="primary" />
-                      </IconButton>
-                    </Stack>
-                  </Stack>
-                </ListItem>
-              ))
+                  </ListItem>
+                ))
             ) : (
               <ListItem sx={{ flexDirection: "column", alignItems: "center", py: 6 }}>
                 <Avatar sx={{ bgcolor: "grey.100", color: "grey.500", width: 56, height: 56, mb: 1 }}>

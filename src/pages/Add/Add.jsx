@@ -3,9 +3,8 @@ import AppLayout from "../../layouts/AppLayout";
 import React, { useState } from "react";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
+import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
 import DeleteIcon from "@mui/icons-material/Delete";
-import CloseIcon from "@mui/icons-material/Close";
 import { Save } from "@mui/icons-material";
 import { addTransaction } from "../../helpers/StorageHelper";
 import dayjs from "dayjs";
@@ -19,21 +18,10 @@ function Add() {
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
 
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
+  const handleClose = (_, reason) => {
+    if (reason === "clickaway") return;
     setOpen(false);
   };
-
-  const action = (
-    <React.Fragment>
-      <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
-        <CloseIcon fontSize="small" />
-      </IconButton>
-    </React.Fragment>
-  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -51,7 +39,7 @@ function Add() {
       addTransaction({
         id: dayjs().valueOf(),
         type: type,
-        amount: parseInt(amount),
+        amount: parsedAmount,
         date: date.toISOString(),
         description: description.replace(/[\n\r\t]+/g, "").trim(),
       });
@@ -59,113 +47,106 @@ function Add() {
       setSuccess("Berhasil menambahkan transaksi");
       resetForm();
       setOpen(true);
-      setTimeout(() => {
-        setSuccess("");
-      }, 3500);
+      setTimeout(() => setSuccess(""), 3500);
     } catch (error) {
       setOpen(true);
       setError(error.message);
-      setTimeout(() => {
-        setError("");
-      }, 3500);
-      return;
+      setTimeout(() => setError(""), 3500);
     }
   };
 
   const resetForm = () => {
+    setType("Income");
     setAmount("");
     setDate(dayjs());
     setDescription("");
-    setType("Income");
   };
 
   return (
     <AppLayout>
-      <Box mt={1} p={2} pb={20}>
-        <Typography variant="h6" color="primary">
-          Tambah
-        </Typography>
-        <Typography variant="h6" fontSize={15} color="#777" mb={5}>
-          Pemasukan / Pengeluaran
-        </Typography>
+      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="id">
+        <Box mt={1} p={2} pb={20}>
+          <Typography variant="h6" color="primary">
+            Tambah
+          </Typography>
+          <Typography variant="h6" fontSize={15} color="#777" mb={5}>
+            Pemasukan / Pengeluaran
+          </Typography>
 
-        {error && (
-          <Snackbar anchorOrigin={{ vertical: "top", horizontal: "right" }} open={open} autoHideDuration={3000} onClose={handleClose}>
-            <Alert onClose={handleClose} severity="error" variant="filled" sx={{ color: "white", width: "100%" }}>
-              {error}
-            </Alert>
-          </Snackbar>
-        )}
-        {success && (
-          <Snackbar anchorOrigin={{ vertical: "top", horizontal: "right" }} open={open} autoHideDuration={3000} onClose={handleClose}>
-            <Alert onClose={handleClose} severity="success" variant="filled" sx={{ color: "white", width: "100%", bgcolor: "primary.main" }}>
-              {success}
-            </Alert>
-          </Snackbar>
-        )}
+          {error && (
+            <Snackbar anchorOrigin={{ vertical: "top", horizontal: "right" }} open={open} autoHideDuration={3000} onClose={handleClose}>
+              <Alert onClose={handleClose} severity="error" variant="filled" sx={{ color: "white", width: "100%" }}>
+                {error}
+              </Alert>
+            </Snackbar>
+          )}
 
-        {/* Form Input */}
-        <form onSubmit={handleSubmit} autoComplete="off">
-          <input type="hidden" autoComplete="false" />
-          <Stack spacing={2}>
-            {/* Jenis */}
-            <FormControl fullWidth>
-              <InputLabel id="type">Jenis</InputLabel>
-              <Select required labelId="type" value={type} label="Jenis" onChange={(e) => setType(e.target.value)}>
-                <MenuItem value="Income">Pemasukan</MenuItem>
-                <MenuItem value="Expense">Pengeluaran</MenuItem>
-              </Select>
-            </FormControl>
+          {success && (
+            <Snackbar anchorOrigin={{ vertical: "top", horizontal: "right" }} open={open} autoHideDuration={3000} onClose={handleClose}>
+              <Alert onClose={handleClose} severity="success" variant="filled" sx={{ color: "white", width: "100%", bgcolor: "primary.main" }}>
+                {success}
+              </Alert>
+            </Snackbar>
+          )}
 
-            {/* Nominal */}
-            <FormControl fullWidth sx={{ m: 1 }}>
-              <InputLabel htmlFor="nominal">Nominal</InputLabel>
-              <OutlinedInput
-                required
-                type="text"
-                value={amount}
-                onChange={(e) => {
-                  const onlyNums = e.target.value.replace(/\D/g, "");
-                  setAmount(onlyNums);
-                }}
-                onKeyDown={(e) => {
-                  if (!/[0-9]/.test(e.key) && e.key !== "Backspace" && e.key !== "Delete" && e.key !== "ArrowLeft" && e.key !== "ArrowRight" && e.key !== "Tab") {
-                    e.preventDefault();
-                  }
-                }}
-                id="nominal"
-                startAdornment={<InputAdornment position="start">Rp</InputAdornment>}
-                label="Nominal"
-              />
-            </FormControl>
+          <form onSubmit={handleSubmit} autoComplete="off">
+            <input type="hidden" autoComplete="false" />
+            <Stack spacing={2}>
+              {/* Jenis */}
+              <FormControl fullWidth>
+                <InputLabel id="type">Jenis</InputLabel>
+                <Select required labelId="type" value={type} label="Jenis" onChange={(e) => setType(e.target.value)}>
+                  <MenuItem value="Income">Pemasukan</MenuItem>
+                  <MenuItem value="Expense">Pengeluaran</MenuItem>
+                </Select>
+              </FormControl>
 
-            {/* DatePicker */}
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <MobileDatePicker
-                type="date"
-                required
-                label="Tanggal"
+              {/* Nominal */}
+              <FormControl fullWidth sx={{ m: 1 }}>
+                <InputLabel htmlFor="nominal">Nominal</InputLabel>
+                <OutlinedInput
+                  required
+                  type="text"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value.replace(/\D/g, ""))}
+                  onKeyDown={(e) => {
+                    const allowed = ["Backspace", "Delete", "ArrowLeft", "ArrowRight", "Tab"];
+                    if (!/[0-9]/.test(e.key) && !allowed.includes(e.key)) {
+                      e.preventDefault();
+                    }
+                  }}
+                  id="nominal"
+                  startAdornment={<InputAdornment position="start">Rp</InputAdornment>}
+                  label="Nominal"
+                />
+              </FormControl>
+
+              {/* Date Time Picker */}
+              <MobileDateTimePicker
+                label="Waktu"
                 value={date}
-                onChange={(newValue) => {
-                  setDate(newValue);
-                }}
+                onChange={(newValue) => newValue && setDate(newValue)}
                 slotProps={{
                   textField: { fullWidth: true },
                 }}
               />
-            </LocalizationProvider>
-            <TextField required value={description} onChange={(e) => setDescription(e.target.value)} label="Keterangan" fullWidth multiline rows={4} />
-            <Stack direction="row" justifyContent={"end"} spacing={1}>
-              <Button onClick={resetForm} type="reset" variant="outlined" color="error" startIcon={<DeleteIcon />}>
-                Reset
-              </Button>
-              <Button type="submit" variant="contained" endIcon={<Save />}>
-                Simpan
-              </Button>
+
+              {/* Keterangan */}
+              <TextField required value={description} onChange={(e) => setDescription(e.target.value)} label="Keterangan" fullWidth multiline rows={4} />
+
+              {/* Tombol */}
+              <Stack direction="row" justifyContent="end" spacing={1}>
+                <Button onClick={resetForm} type="reset" variant="outlined" color="error" startIcon={<DeleteIcon />}>
+                  Reset
+                </Button>
+                <Button type="submit" variant="contained" endIcon={<Save />}>
+                  Simpan
+                </Button>
+              </Stack>
             </Stack>
-          </Stack>
-        </form>
-      </Box>
+          </form>
+        </Box>
+      </LocalizationProvider>
     </AppLayout>
   );
 }
