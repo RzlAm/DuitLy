@@ -10,8 +10,10 @@ function AppLayout({ children }) {
 
   const fabStyle = {
     position: "fixed",
-    bottom: 80,
-    right: 16,
+    bottom: 70,
+    left: { xs: "auto", sm: "50%" },
+    right: { xs: 18, sm: "auto" },
+    transform: { xs: "none", sm: "translate(-50%, 0)" },
   };
   return (
     <Box>
