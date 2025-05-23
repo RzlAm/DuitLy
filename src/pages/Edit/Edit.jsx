@@ -93,6 +93,13 @@ function Add() {
     }
   };
 
+  const resetForm = () => {
+    setAmount("");
+    setDate(dayjs());
+    setDescription("");
+    setType("Income");
+  };
+
   return (
     <AppLayout>
       <Box mt={1} p={2}>
@@ -170,7 +177,7 @@ function Add() {
               </LocalizationProvider>
               <TextField required value={description} onChange={(e) => setDescription(e.target.value)} label="Keterangan" fullWidth multiline rows={4} />
               <Stack direction="row" justifyContent={"end"} spacing={1}>
-                <Button type="reset\" variant="outlined" color="error" startIcon={<DeleteIcon />}>
+                <Button onClick={resetForm} type="reset" variant="outlined" color="error" startIcon={<DeleteIcon />}>
                   Reset
                 </Button>
                 <Button type="submit" variant="contained" endIcon={<Save />}>
