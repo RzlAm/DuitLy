@@ -21,7 +21,7 @@ const getDesignTokens = (mode) => ({
       main: "#f50057",
     },
     background: {
-      default: mode === "dark" ? "#121212" : "#f1f1f1",
+      default: mode === "dark" ? "#121212" : "#fafafa",
       paper: mode === "dark" ? "#1f1f1f" : "#ffffff",
     },
   },
