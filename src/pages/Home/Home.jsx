@@ -105,12 +105,11 @@ function Home() {
       </Box>
 
       {/* Chart Section */}
-      <Box mt={1} p={2}>
+      <Box sx={{ p: 2, pb: 5, mt: 2 }}>
         <TransactionChart transactions={transactions} />
       </Box>
-
-      {/* Riwayat Pemasukan dan Pengeluaran */}
-      <Box mt={1} p={2} pb={10}>
+      <Box p={2} pb={10}>
+        {/* Riwayat Pemasukan dan Pengeluaran */}
         <Typography variant="h6" gutterBottom>
           Riwayat Terbaru
         </Typography>
