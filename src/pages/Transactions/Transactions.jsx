@@ -91,7 +91,7 @@ function Transactions() {
   const FilterUI = (
     <Box mb={2} mt={3}>
       <TextField
-        label="Cari keterangan"
+        label="Cari transaksi..."
         value={filter.keyword}
         onChange={(e) => handleFilterChange("keyword", e.target.value)}
         fullWidth
@@ -235,7 +235,7 @@ function Transactions() {
         </DialogActions>
       </Dialog>
 
-      <Box sx={{ marginTop: "55px" }} pb={10}>
+      <Box sx={{ marginTop: "55px" }} pb={13}>
         <CustomTabPanel value={value} index={1}>
           <Typography variant="h3" sx={{ fontSize: 20, textAlign: "center" }} mb={1}>
             Pemasukan
