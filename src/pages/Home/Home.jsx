@@ -108,7 +108,7 @@ function Home() {
       <Box sx={{ p: 2, pb: 5, mt: 2 }}>
         <TransactionChart transactions={transactions} />
       </Box>
-      <Box p={2} pb={10}>
+      <Box p={2} pb={13}>
         {/* Riwayat Pemasukan dan Pengeluaran */}
         <Typography variant="h6" gutterBottom>
           Riwayat Terbaru
