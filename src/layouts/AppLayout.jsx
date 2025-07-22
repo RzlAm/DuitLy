@@ -3,6 +3,7 @@ import BottomNavigationComponent from "../components/BottomNavigationComponent";
 import Box from "@mui/material/Box";
 import { Add } from "@mui/icons-material";
 import { useLocation, useNavigate } from "react-router-dom";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 function AppLayout({ children }) {
   const location = useLocation();
@@ -35,6 +36,7 @@ function AppLayout({ children }) {
             {<Add />}
           </Fab>
         )}
+        <SpeedInsights />
         <BottomNavigationComponent />
       </Box>
     </Box>
